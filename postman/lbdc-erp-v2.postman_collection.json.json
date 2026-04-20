@@ -18,8 +18,8 @@
 			"response": []
 		},
 		{
-			"name": "Seller - Get profile",
-			"id": "8462135c-40ef-481d-9f7c-bac97d1563f8",
+			"name": "Auth - Get acces token",
+			"id": "61250e7c-7316-4c3a-accf-1013b16ad6d2",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -30,8 +30,8 @@
 			"response": []
 		},
 		{
-			"name": "Auth - Get acces token",
-			"id": "61250e7c-7316-4c3a-accf-1013b16ad6d2",
+			"name": "New Request",
+			"id": "30c3fdd8-5642-49d1-b813-7c6c2000dd94",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
