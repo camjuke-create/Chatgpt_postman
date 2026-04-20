@@ -1,0 +1,132 @@
+{
+  "info": {
+    "_postman_id": "13e05aee-1107-437a-948a-1135b41b2bc8-ready",
+    "name": "LBDC ERP V2 - Ready",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Auth - Get access token",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 200', function () {",
+              "  pm.response.to.have.status(200);",
+              "});",
+              "",
+              "const body = pm.response.json();",
+              "pm.test('access_token returned', function () {",
+              "  pm.expect(body.access_token, 'access_token').to.be.a('string').that.is.not.empty;",
+              "});",
+              "",
+              "if (body.access_token) {",
+              "  pm.environment.set('access_token', body.access_token);",
+              "}"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/x-www-form-urlencoded"
+          }
+        ],
+        "body": {
+          "mode": "urlencoded",
+          "urlencoded": [
+            {
+              "key": "grant_type",
+              "value": "client_credentials",
+              "type": "text"
+            },
+            {
+              "key": "client_id",
+              "value": "{{client_id}}",
+              "type": "text"
+            },
+            {
+              "key": "client_secret",
+              "value": "{{client_secret}}",
+              "type": "text"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{auth_url}}",
+          "host": [
+            "{{auth_url}}"
+          ]
+        },
+        "description": "Generates an Octopia OAuth2 bearer token and stores it in the active environment as access_token."
+      },
+      "response": []
+    },
+    {
+      "name": "Seller - Get profile",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "const token = pm.environment.get('access_token');",
+              "if (!token) {",
+              "  throw new Error('Run Auth - Get access token first.');",
+              "}"
+            ]
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 200', function () {",
+              "  pm.response.to.have.status(200);",
+              "});",
+              "",
+              "const body = pm.response.json();",
+              "pm.test('Seller profile has seller_id', function () {",
+              "  pm.expect(body.seller_id, 'seller_id').to.exist;",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}"
+          },
+          {
+            "key": "SellerId",
+            "value": "{{seller_id}}"
+          },
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/sellers",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "sellers"
+          ]
+        },
+        "description": "Checks the Octopia seller connection with the configured SellerId."
+      },
+      "response": []
+    }
+  ]
+}
