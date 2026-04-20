@@ -1,182 +1,59 @@
 {
-  "info": {
-    "_postman_id": "13e05aee-1107-437a-948a-1135b41b2bc8",
-    "name": "LBDC ERP V2",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
-  },
-  "item": [
-    {
-      "name": "Auth",
-      "item": [
-        {
-          "name": "Auth - Get access token",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "type": "text/javascript",
-                "exec": [
-                  "pm.test('HTTP 200', function () {",
-                  "  pm.response.to.have.status(200);",
-                  "});",
-                  "",
-                  "const body = pm.response.json();",
-                  "pm.test('access_token returned', function () {",
-                  "  pm.expect(body.access_token, 'access_token').to.be.a('string').that.is.not.empty;",
-                  "});",
-                  "",
-                  "if (body.access_token) {",
-                  "  pm.environment.set('access_token', body.access_token);",
-                  "  pm.collectionVariables.set('access_token', body.access_token);",
-                  "}"
-                ]
-              }
-            }
-          ],
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/x-www-form-urlencoded"
-              }
-            ],
-            "body": {
-              "mode": "urlencoded",
-              "urlencoded": [
-                {
-                  "key": "grant_type",
-                  "value": "client_credentials",
-                  "type": "text"
-                },
-                {
-                  "key": "client_id",
-                  "value": "{{client_id}}",
-                  "type": "text"
-                },
-                {
-                  "key": "client_secret",
-                  "value": "{{client_secret}}",
-                  "type": "text"
-                }
-              ]
-            },
-            "url": "{{auth_url}}",
-            "description": "Recupere un access_token OAuth2 Octopia et l'enregistre dans access_token."
-          },
-          "response": []
-        }
-      ]
-    },
-    {
-      "name": "Seller",
-      "item": [
-        {
-          "name": "Seller - Get profile",
-          "event": [
-            {
-              "listen": "prerequest",
-              "script": {
-                "type": "text/javascript",
-                "exec": [
-                  "const token = pm.environment.get('access_token') || pm.collectionVariables.get('access_token');",
-                  "if (!token || token === 'A_REMPLIR') {",
-                  "  throw new Error('Run Auth - Get access token first.');",
-                  "}"
-                ]
-              }
-            },
-            {
-              "listen": "test",
-              "script": {
-                "type": "text/javascript",
-                "exec": [
-                  "pm.test('HTTP 200', function () {",
-                  "  pm.response.to.have.status(200);",
-                  "});",
-                  "",
-                  "const body = pm.response.json();",
-                  "pm.test('Seller profile has seller_id', function () {",
-                  "  pm.expect(body.seller_id, 'seller_id').to.exist;",
-                  "});"
-                ]
-              }
-            }
-          ],
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{access_token}}"
-              },
-              {
-                "key": "SellerId",
-                "value": "{{seller_id}}"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "url": "{{base_url}}/sellers",
-            "description": "Verifie la connexion vendeur Octopia avec le SellerId configure."
-          },
-          "response": []
-        }
-      ]
-    }
-  ],
-  "event": [
-    {
-      "listen": "prerequest",
-      "script": {
-        "type": "text/javascript",
-        "exec": [
-          ""
-        ]
-      }
-    },
-    {
-      "listen": "test",
-      "script": {
-        "type": "text/javascript",
-        "exec": [
-          ""
-        ]
-      }
-    }
-  ],
-  "variable": [
-    {
-      "key": "auth_url",
-      "value": "https://auth.octopia-io.net/auth/realms/maas/protocol/openid-connect/token",
-      "type": "string"
-    },
-    {
-      "key": "base_url",
-      "value": "https://api.octopia-io.net/seller/v2",
-      "type": "string"
-    },
-    {
-      "key": "client_id",
-      "value": "A_REMPLIR",
-      "type": "string"
-    },
-    {
-      "key": "client_secret",
-      "value": "A_REMPLIR",
-      "type": "string"
-    },
-    {
-      "key": "seller_id",
-      "value": "A_REMPLIR",
-      "type": "string"
-    },
-    {
-      "key": "access_token",
-      "value": "",
-      "type": "string"
-    }
-  ]
+	"info": {
+		"_postman_id": "13e05aee-1107-437a-948a-1135b41b2bc8",
+		"name": "LBDC ERP V2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Auth - Get acces token",
+			"id": "8746628e-4a65-476a-9f98-e1b84eb8fec1",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "Seller - Get profile",
+			"id": "8462135c-40ef-481d-9f7c-bac97d1563f8",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "a7a91347-8683-4bd8-93a7-e1fc73fef659",
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "f4ce59b6-a2c8-40c6-a1e4-907db8602559",
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
 }
