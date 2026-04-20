@@ -6,7 +6,7 @@
 	},
 	"item": [
 		{
-			"name": "Auth - Get acces token",
+			"name": "error",
 			"id": "8746628e-4a65-476a-9f98-e1b84eb8fec1",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
@@ -30,7 +30,7 @@
 			"response": []
 		},
 		{
-			"name": "New Request",
+			"name": "Auth - Get acces token",
 			"id": "61250e7c-7316-4c3a-accf-1013b16ad6d2",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
