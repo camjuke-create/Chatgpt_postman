@@ -1,0 +1,96 @@
+/* ============================================================
+   SYMPLYA — Design Tokens
+   Palette extraite des wireframes Portail Client (Whimsical)
+   ============================================================ */
+
+:root {
+  /* ── Couleurs de marque ──────────────────────────────────── */
+  --color-primary:        #2C88D9;   /* Blue    — CTA principal, statut "En cours" */
+  --color-primary-dark:   #1A6AB5;   /* Blue foncé — hover sur primaire */
+  --color-primary-light:  #D6EAFA;   /* Blue pâle — fond de badge primaire */
+
+  --color-secondary:      #6558F5;   /* Indigo  — liens, actions secondaires */
+  --color-secondary-dark: #4940D4;   /* Indigo foncé — hover */
+  --color-secondary-light:#ECEAFF;   /* Indigo pâle — fond de badge secondaire */
+
+  /* ── Texte & structure ───────────────────────────────────── */
+  --color-slate:          #4B5C6B;   /* Couleur texte par défaut */
+  --color-slate-light:    #6B7D8D;   /* Texte secondaire / sous-titres */
+  --color-gray:           #788896;   /* Dividers, tags neutres */
+  --color-smoke:          #C3CFD9;   /* Bordures, fonds très légers */
+  --color-white:          #FFFFFF;   /* Fond principal */
+  --color-off-white:      #F5F8FA;   /* Fond alternatif de section */
+
+  /* ── Statuts ─────────────────────────────────────────────── */
+  --color-success:        #1AAE9F;   /* Mint  — Terminé, progression */
+  --color-success-dark:   #207868;   /* Green — succès profond */
+  --color-success-light:  #D3F5F1;   /* Mint pâle */
+
+  --color-warning:        #E8833A;   /* Orange — avertissement */
+  --color-warning-light:  #FDE8D8;
+
+  --color-danger:         #D3455B;   /* Red   — erreur, action critique */
+  --color-danger-light:   #FAD8DE;
+
+  --color-info:           #F7C325;   /* Yellow — information */
+  --color-info-light:     #FEF5D3;
+
+  /* ── Typographie ─────────────────────────────────────────── */
+  --font-sans:    'Inter', 'Segoe UI', system-ui, sans-serif;
+  --font-heading: 'Inter', 'Segoe UI', system-ui, sans-serif;
+
+  --text-xs:   0.75rem;   /* 12px */
+  --text-sm:   0.875rem;  /* 14px */
+  --text-base: 1rem;      /* 16px */
+  --text-lg:   1.125rem;  /* 18px */
+  --text-xl:   1.25rem;   /* 20px */
+  --text-2xl:  1.5rem;    /* 24px */
+  --text-3xl:  1.875rem;  /* 30px */
+  --text-4xl:  2.25rem;   /* 36px */
+
+  --font-normal:   400;
+  --font-medium:   500;
+  --font-semibold: 600;
+  --font-bold:     700;
+
+  /* ── Espacement ──────────────────────────────────────────── */
+  --space-1:  0.25rem;   /*  4px */
+  --space-2:  0.5rem;    /*  8px */
+  --space-3:  0.75rem;   /* 12px */
+  --space-4:  1rem;      /* 16px */
+  --space-5:  1.25rem;   /* 20px */
+  --space-6:  1.5rem;    /* 24px */
+  --space-8:  2rem;      /* 32px */
+  --space-10: 2.5rem;    /* 40px */
+  --space-12: 3rem;      /* 48px */
+  --space-16: 4rem;      /* 64px */
+
+  /* ── Bordures & rayons ───────────────────────────────────── */
+  --radius-sm:  0.25rem;   /*  4px */
+  --radius-md:  0.5rem;    /*  8px */
+  --radius-lg:  0.75rem;   /* 12px */
+  --radius-xl:  1rem;      /* 16px */
+  --radius-full: 9999px;
+
+  --border-width: 1px;
+  --border-color: var(--color-smoke);
+
+  /* ── Ombres ──────────────────────────────────────────────── */
+  --shadow-sm: 0 1px 2px 0 rgba(75, 92, 107, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(75, 92, 107, 0.1),
+               0 2px 4px -1px rgba(75, 92, 107, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(75, 92, 107, 0.1),
+               0 4px 6px -2px rgba(75, 92, 107, 0.05);
+  --shadow-card: 0 2px 8px 0 rgba(44, 136, 217, 0.08);
+
+  /* ── Transitions ─────────────────────────────────────────── */
+  --transition-fast:   150ms ease;
+  --transition-normal: 250ms ease;
+  --transition-slow:   400ms ease;
+
+  /* ── Largeurs max de contenu ─────────────────────────────── */
+  --container-sm:  640px;
+  --container-md:  768px;
+  --container-lg:  1024px;
+  --container-xl:  1280px;
+}

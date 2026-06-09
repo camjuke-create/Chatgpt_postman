@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SYMPLYA — Design System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="symplya-tokens.css">
+  <link rel="stylesheet" href="symplya-components.css">
+  <style>
+    body { background: var(--color-off-white); }
+    .ds-section {
+      max-width: 900px;
+      margin: var(--space-8) auto;
+      padding: var(--space-6);
+    }
+    .ds-title {
+      font-size: var(--text-sm);
+      font-weight: var(--font-semibold);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--color-gray);
+      margin-bottom: var(--space-4);
+    }
+    .ds-grid { display: grid; gap: var(--space-4); }
+    .ds-grid-2 { grid-template-columns: repeat(2, 1fr); }
+    .ds-grid-3 { grid-template-columns: repeat(3, 1fr); }
+    .ds-grid-4 { grid-template-columns: repeat(4, 1fr); }
+    .ds-grid-7 { grid-template-columns: repeat(7, 1fr); }
+    @media (max-width: 640px) {
+      .ds-grid-2, .ds-grid-3, .ds-grid-4, .ds-grid-7 { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    /* Swatch couleur */
+    .swatch {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      border: 1px solid rgba(0,0,0,0.06);
+    }
+    .swatch-color { height: 72px; }
+    .swatch-info {
+      background: var(--color-white);
+      padding: var(--space-3);
+    }
+    .swatch-name {
+      font-size: var(--text-sm);
+      font-weight: var(--font-semibold);
+      color: var(--color-slate);
+    }
+    .swatch-hex {
+      font-size: var(--text-xs);
+      color: var(--color-gray);
+      font-family: monospace;
+    }
+
+    /* Tableau typo */
+    .type-sample { padding: var(--space-4); background: var(--color-white); border-radius: var(--radius-lg); border: 1px solid var(--color-smoke); }
+    .type-meta { font-size: var(--text-xs); color: var(--color-gray); font-family: monospace; margin-top: var(--space-1); }
+
+    /* Button row */
+    .btn-row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-4); }
+
+    /* Demo card projet */
+    .project-row {
+      display: flex;
+      align-items: center;
+      gap: var(--space-4);
+      padding: var(--space-4) 0;
+      border-bottom: 1px solid var(--color-smoke);
+    }
+    .project-row:last-child { border-bottom: none; }
+    .project-info { flex: 1; }
+    .project-name { font-weight: var(--font-medium); }
+    .project-date { font-size: var(--text-sm); color: var(--color-slate-light); }
+    .project-right { display: flex; align-items: center; gap: var(--space-4); min-width: 220px; justify-content: flex-end; }
+    .progress-wrap { width: 100px; }
+    .progress-label { font-size: var(--text-xs); color: var(--color-gray); margin-top: 2px; text-align: right; }
+  </style>
+</head>
+<body>
+
+  <!-- En-tête -->
+  <div style="background: var(--color-slate); padding: var(--space-10) var(--space-6); text-align: center; margin-bottom: var(--space-8);">
+    <div style="font-size: var(--text-4xl); font-weight: var(--font-bold); color: var(--color-white); letter-spacing: -0.02em;">
+      SYM<span style="color: var(--color-primary);">PLYA</span>
+    </div>
+    <div style="color: var(--color-smoke); margin-top: var(--space-2); font-size: var(--text-lg);">Design System — Guide couleurs & composants</div>
+  </div>
+
+  <!-- ── Palette de couleurs ── -->
+  <div class="ds-section">
+    <div class="ds-title">Palette de couleurs</div>
+    <div class="ds-grid ds-grid-4" style="margin-bottom: var(--space-8);">
+
+      <div class="swatch">
+        <div class="swatch-color" style="background: #2C88D9;"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Blue — Primaire</div>
+          <div class="swatch-hex">#2C88D9</div>
+        </div>
+      </div>
+
+      <div class="swatch">
+        <div class="swatch-color" style="background: #6558F5;"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Indigo — Secondaire</div>
+          <div class="swatch-hex">#6558F5</div>
+        </div>
+      </div>
+
+      <div class="swatch">
+        <div class="swatch-color" style="background: #4B5C6B;"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Slate — Texte</div>
+          <div class="swatch-hex">#4B5C6B</div>
+        </div>
+      </div>
+
+      <div class="swatch">
+        <div class="swatch-color" style="background: #1AAE9F;"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Mint — Succès</div>
+          <div class="swatch-hex">#1AAE9F</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ds-grid ds-grid-4">
+      <div class="swatch">
+        <div class="swatch-color" style="background: #788896;"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Gray — Neutre</div>
+          <div class="swatch-hex">#788896</div>
+        </div>
+      </div>
+
+      <div class="swatch">
+        <div class="swatch-color" style="background: #C3CFD9;"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Smoke — Fond/Bordure</div>
+          <div class="swatch-hex">#C3CFD9</div>
+        </div>
+      </div>
+
+      <div class="swatch">
+        <div class="swatch-color" style="background: #E8833A;"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Orange — Avertissement</div>
+          <div class="swatch-hex">#E8833A</div>
+        </div>
+      </div>
+
+      <div class="swatch">
+        <div class="swatch-color" style="background: #D3455B;"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Red — Danger</div>
+          <div class="swatch-hex">#D3455B</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Typographie ── -->
+  <div class="ds-section">
+    <div class="ds-title">Typographie — Inter</div>
+    <div class="ds-grid" style="gap: var(--space-3);">
+      <div class="type-sample">
+        <div style="font-size: var(--text-4xl); font-weight: var(--font-bold);">Titre de page H1</div>
+        <div class="type-meta">Inter Bold / 36px</div>
+      </div>
+      <div class="type-sample">
+        <div style="font-size: var(--text-3xl); font-weight: var(--font-semibold);">Section principale H2</div>
+        <div class="type-meta">Inter SemiBold / 30px</div>
+      </div>
+      <div class="type-sample">
+        <div style="font-size: var(--text-xl); font-weight: var(--font-semibold);">Sous-section H3</div>
+        <div class="type-meta">Inter SemiBold / 20px</div>
+      </div>
+      <div class="type-sample">
+        <div style="font-size: var(--text-base);">Corps de texte standard. Utilisé pour les paragraphes, descriptions et contenus généraux du site.</div>
+        <div class="type-meta">Inter Regular / 16px</div>
+      </div>
+      <div class="type-sample">
+        <div style="font-size: var(--text-sm); color: var(--color-slate-light);">Texte secondaire, métadonnées, mentions légales et annotations.</div>
+        <div class="type-meta">Inter Regular / 14px — couleur Slate-light</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Boutons ── -->
+  <div class="ds-section">
+    <div class="ds-title">Boutons</div>
+    <div class="card">
+      <div class="card-body">
+        <div class="btn-row">
+          <button class="btn btn-primary">Se connecter</button>
+          <button class="btn btn-secondary">Voir le projet</button>
+          <button class="btn btn-outline">En savoir plus</button>
+          <button class="btn btn-ghost">Mot de passe oublié ?</button>
+          <button class="btn btn-danger">Supprimer</button>
+        </div>
+        <div class="divider"></div>
+        <div class="btn-row">
+          <button class="btn btn-primary btn-sm">Petit</button>
+          <button class="btn btn-primary">Moyen</button>
+          <button class="btn btn-primary btn-lg">Grand</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Badges ── -->
+  <div class="ds-section">
+    <div class="ds-title">Badges / Statuts</div>
+    <div class="card">
+      <div class="card-body" style="display: flex; flex-wrap: wrap; gap: var(--space-4); align-items: center;">
+        <span class="badge badge-primary">En cours</span>
+        <span class="badge badge-secondary">Déconnexion</span>
+        <span class="badge badge-success">Terminé</span>
+        <span class="badge badge-warning">En attente</span>
+        <span class="badge badge-danger">Annulé</span>
+        <span class="badge badge-gray">Planifié</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Formulaires ── -->
+  <div class="ds-section">
+    <div class="ds-title">Formulaires — Connexion Espace Client</div>
+    <div class="card" style="max-width: 400px; margin: 0 auto;">
+      <div class="card-body" style="display: flex; flex-direction: column; gap: var(--space-6);">
+        <div>
+          <h3 style="font-size: var(--text-2xl);">Espace Client</h3>
+          <p class="text-muted" style="margin-top: var(--space-1); font-size: var(--text-sm);">Accédez à vos projets en cours</p>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Adresse email</label>
+          <input class="form-input" type="email" placeholder="contact@societe.fr">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Mot de passe</label>
+          <input class="form-input" type="password" placeholder="••••••••">
+        </div>
+        <button class="btn btn-primary w-full">Se connecter</button>
+        <div class="divider" style="margin: 0;"></div>
+        <div style="text-align: center;">
+          <button class="btn btn-ghost btn-sm">Mot de passe oublié ?</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Alerte ── -->
+  <div class="ds-section">
+    <div class="ds-title">Alertes</div>
+    <div class="ds-grid">
+      <div class="alert alert-info">ℹ️ Votre projet est en cours de traitement. Livraison prévue le 30 juillet.</div>
+      <div class="alert alert-success">✅ Étape "Audit de l'existant" terminée avec succès le 10 mai 2026.</div>
+      <div class="alert alert-warning">⚠️ La date de livraison approche. Veuillez valider les maquettes.</div>
+      <div class="alert alert-danger">❌ Une erreur est survenue. Veuillez contacter votre consultant.</div>
+    </div>
+  </div>
+
+  <!-- ── Dashboard projet (démo) ── -->
+  <div class="ds-section">
+    <div class="ds-title">Composant — Liste de projets</div>
+    <div class="card">
+      <div class="card-header" style="display: flex; align-items: center; justify-content: space-between;">
+        <h4 style="font-size: var(--text-xl);">Mes projets</h4>
+        <span class="badge badge-gray">3 projets actifs</span>
+      </div>
+      <div class="card-body" style="padding: var(--space-4) var(--space-6);">
+
+        <div class="project-row">
+          <div class="project-info">
+            <div class="project-name">Refonte site web e-commerce</div>
+            <div class="project-date">Livraison souhaitée : 30 juillet 2026</div>
+          </div>
+          <div class="project-right">
+            <div class="progress-wrap">
+              <div class="progress">
+                <div class="progress-bar" style="width: 60%;"></div>
+              </div>
+              <div class="progress-label">60 %</div>
+            </div>
+            <span class="badge badge-primary">En cours</span>
+            <button class="btn btn-secondary btn-sm">Voir</button>
+          </div>
+        </div>
+
+        <div class="project-row">
+          <div class="project-info">
+            <div class="project-name">Audit SEO & Stratégie digitale</div>
+            <div class="project-date">Livraison souhaitée : 15 août 2026</div>
+          </div>
+          <div class="project-right">
+            <div class="progress-wrap">
+              <div class="progress">
+                <div class="progress-bar" style="width: 25%;"></div>
+              </div>
+              <div class="progress-label">25 %</div>
+            </div>
+            <span class="badge badge-primary">En cours</span>
+            <button class="btn btn-secondary btn-sm">Voir</button>
+          </div>
+        </div>
+
+        <div class="project-row">
+          <div class="project-info">
+            <div class="project-name">Intégration CRM Salesforce</div>
+            <div class="project-date">Livraison souhaitée : 1 octobre 2026</div>
+          </div>
+          <div class="project-right">
+            <div class="progress-wrap">
+              <div class="progress">
+                <div class="progress-bar" style="width: 10%;"></div>
+              </div>
+              <div class="progress-label">10 %</div>
+            </div>
+            <span class="badge badge-gray">Planifié</span>
+            <button class="btn btn-secondary btn-sm">Voir</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Pied de page ── -->
+  <div style="text-align: center; padding: var(--space-12); color: var(--color-gray); font-size: var(--text-sm);">
+    SYMPLYA Design System · 2026
+  </div>
+
+</body>
+</html>
