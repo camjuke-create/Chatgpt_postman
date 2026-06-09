@@ -117,6 +117,7 @@ export async function getConsultantsByIds(ids: string[]): Promise<Consultant[]> 
   }))
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type AirtableRecord = { id: string; fields: Record<string, any> }
 
 function recordToProjet(r: AirtableRecord): Projet {
