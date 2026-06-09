@@ -1,0 +1,111 @@
+/* ============================================================
+   SYMPLYA CONTENT — Design Tokens
+   Inspiré du logo & master Canva officiel SYMPLYA CONTENT
+   Style : minimaliste · premium · mobile-first · bleu profond
+   ============================================================ */
+
+:root {
+  /* ── Couleurs de marque ──────────────────────────────────── */
+
+  /* Bleu Navy profond — couleur signature SYMPLYA CONTENT      */
+  /* Usage : textes, titres, header, footer, mots-clés gras     */
+  --sc-navy:          #1A2B52;
+  --sc-navy-dark:     #0F1A36;   /* Footer band, accents sombres */
+  --sc-navy-medium:   #243A6E;   /* Hover sur navy, variante     */
+  --sc-navy-light:    #D6DCF0;   /* Fond de badge navy           */
+
+  /* Teal accent — CTA, liens, "PROCHAINE ÉTAPE →"              */
+  --sc-teal:          #2E8BBF;
+  --sc-teal-dark:     #1E6A96;
+  --sc-teal-light:    #D4EEF9;
+
+  /* Vert doux — succès, tags positifs, "palette vert doux"     */
+  --sc-green:         #4EAD8B;
+  --sc-green-dark:    #357A62;
+  --sc-green-light:   #DCF2EA;
+
+  /* ── Neutres ─────────────────────────────────────────────── */
+  --sc-bg:            #F2F5F9;   /* Fond principal — gris-bleu pâle       */
+  --sc-white:         #FFFFFF;
+  --sc-gray-100:      #E8EDF4;   /* Séparateurs, fonds légers             */
+  --sc-gray-300:      #C5CFE0;   /* Bordures                              */
+  --sc-gray-500:      #7A8BAA;   /* Texte secondaire, "SÉRIE X / Y"       */
+  --sc-gray-700:      #4A5568;   /* Labels, annotations                   */
+
+  /* ── Statuts ─────────────────────────────────────────────── */
+  --sc-success:       var(--sc-green);
+  --sc-success-light: var(--sc-green-light);
+  --sc-info:          var(--sc-teal);
+  --sc-info-light:    var(--sc-teal-light);
+  --sc-warning:       #E8A03A;
+  --sc-warning-light: #FDF0D8;
+  --sc-danger:        #D04B5E;
+  --sc-danger-light:  #FAD8DF;
+
+  /* ── Typographie ─────────────────────────────────────────── */
+  /* Sans-sérif contemporaine — identique à la charte Canva    */
+  --sc-font:          'Inter', 'Segoe UI', system-ui, sans-serif;
+
+  --sc-text-xs:   0.75rem;    /* 12px */
+  --sc-text-sm:   0.875rem;   /* 14px */
+  --sc-text-base: 1rem;       /* 16px */
+  --sc-text-lg:   1.125rem;   /* 18px */
+  --sc-text-xl:   1.25rem;    /* 20px */
+  --sc-text-2xl:  1.5rem;     /* 24px */
+  --sc-text-3xl:  1.875rem;   /* 30px */
+  --sc-text-4xl:  2.25rem;    /* 36px */
+  --sc-text-5xl:  3rem;       /* 48px */
+
+  --sc-font-normal:   400;
+  --sc-font-medium:   500;
+  --sc-font-semibold: 600;
+  --sc-font-bold:     700;
+
+  /* Ligne de base : 1.6 corps, 1.3 titres                     */
+  --sc-leading-tight:  1.25;
+  --sc-leading-snug:   1.375;
+  --sc-leading-normal: 1.6;
+  --sc-leading-relaxed:1.75;
+
+  /* ── Espacement ──────────────────────────────────────────── */
+  --sc-space-1:  0.25rem;   /*  4px */
+  --sc-space-2:  0.5rem;    /*  8px */
+  --sc-space-3:  0.75rem;   /* 12px */
+  --sc-space-4:  1rem;      /* 16px */
+  --sc-space-5:  1.25rem;   /* 20px */
+  --sc-space-6:  1.5rem;    /* 24px */
+  --sc-space-8:  2rem;      /* 32px */
+  --sc-space-10: 2.5rem;    /* 40px */
+  --sc-space-12: 3rem;      /* 48px */
+  --sc-space-16: 4rem;      /* 64px */
+  --sc-space-20: 5rem;      /* 80px */
+  --sc-space-24: 6rem;      /* 96px */
+
+  /* ── Bordures & rayons ───────────────────────────────────── */
+  --sc-radius-sm:   0.25rem;
+  --sc-radius-md:   0.5rem;
+  --sc-radius-lg:   0.75rem;
+  --sc-radius-xl:   1rem;
+  --sc-radius-2xl:  1.5rem;
+  --sc-radius-full: 9999px;
+
+  --sc-border:       1px solid var(--sc-gray-300);
+  --sc-border-light: 1px solid var(--sc-gray-100);
+
+  /* ── Ombres — subtiles, premium ─────────────────────────── */
+  --sc-shadow-xs: 0 1px 2px 0 rgba(26, 43, 82, 0.04);
+  --sc-shadow-sm: 0 2px 4px 0 rgba(26, 43, 82, 0.06);
+  --sc-shadow-md: 0 4px 12px 0 rgba(26, 43, 82, 0.08);
+  --sc-shadow-lg: 0 8px 24px 0 rgba(26, 43, 82, 0.10);
+  --sc-shadow-xl: 0 16px 40px 0 rgba(26, 43, 82, 0.12);
+
+  /* ── Transitions ─────────────────────────────────────────── */
+  --sc-ease:        cubic-bezier(0.4, 0, 0.2, 1);
+  --sc-transition:  200ms var(--sc-ease);
+
+  /* ── Layout ──────────────────────────────────────────────── */
+  --sc-container-sm:  640px;
+  --sc-container-md:  768px;
+  --sc-container-lg:  1024px;
+  --sc-container-xl:  1200px;
+}

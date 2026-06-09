@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SYMPLYA CONTENT — Design System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="symplya-content-tokens.css">
+  <link rel="stylesheet" href="symplya-content-components.css">
+  <style>
+    .ds-section {
+      max-width: 960px;
+      margin: var(--sc-space-10) auto;
+      padding: 0 var(--sc-space-6);
+    }
+    .ds-label {
+      font-size: var(--sc-text-xs);
+      font-weight: var(--sc-font-bold);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--sc-gray-500);
+      margin-bottom: var(--sc-space-4);
+      padding-bottom: var(--sc-space-2);
+      border-bottom: 1px solid var(--sc-gray-100);
+    }
+    .ds-grid { display: grid; gap: var(--sc-space-4); }
+    .ds-cols-2 { grid-template-columns: repeat(2,1fr); }
+    .ds-cols-3 { grid-template-columns: repeat(3,1fr); }
+    .ds-cols-4 { grid-template-columns: repeat(4,1fr); }
+    .ds-cols-5 { grid-template-columns: repeat(5,1fr); }
+    @media(max-width:640px){.ds-cols-2,.ds-cols-3,.ds-cols-4,.ds-cols-5{grid-template-columns:repeat(2,1fr);}}
+
+    .swatch {
+      border-radius: var(--sc-radius-lg);
+      overflow: hidden;
+      border: 1px solid rgba(0,0,0,0.06);
+    }
+    .swatch-block { height: 80px; }
+    .swatch-info  { background: var(--sc-white); padding: var(--sc-space-3); }
+    .swatch-name  { font-size: var(--sc-text-sm); font-weight: var(--sc-font-semibold); color: var(--sc-navy); }
+    .swatch-hex   { font-size: var(--sc-text-xs); color: var(--sc-gray-500); font-family: monospace; }
+    .swatch-role  { font-size: 10px; color: var(--sc-gray-500); margin-top: 2px; }
+
+    .type-row { background: var(--sc-white); padding: var(--sc-space-4) var(--sc-space-5); border-radius: var(--sc-radius-lg); border: 1px solid var(--sc-gray-100); }
+    .type-meta { font-size: var(--sc-text-xs); color: var(--sc-gray-500); font-family: monospace; margin-top: 4px; }
+
+    .btn-row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sc-space-4); }
+  </style>
+</head>
+<body>
+
+  <!-- ── Navbar ── -->
+  <nav class="sc-navbar">
+    <a href="#" class="sc-brand">
+      <span class="sc-brand-name">SYMPLYA <span>CONTENT</span></span>
+      <span class="sc-brand-sub">L'IA simple pour gagner du temps.</span>
+    </a>
+    <div style="display:flex;gap:var(--sc-space-3);align-items:center;">
+      <span class="sc-badge sc-badge-teal">Design System</span>
+      <a href="#" class="sc-btn sc-btn-navy sc-btn-sm">Voir les séries</a>
+    </div>
+  </nav>
+
+  <!-- ── Hero ── -->
+  <div class="sc-hero">
+    <div class="sc-container sc-container-md" style="display:flex;flex-direction:column;align-items:center;gap:var(--sc-space-4);">
+      <div style="font-size:var(--sc-text-xs);letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.5);font-weight:var(--sc-font-semibold);">SYMPLYA CONTENT</div>
+      <h1 style="font-size:var(--sc-text-4xl);color:var(--sc-white);text-align:center;">Design System<br><span class="sc-hero-accent">Guide couleurs & composants</span></h1>
+      <p class="sc-tagline">Style minimaliste · Bleu Navy · Premium · Mobile-first</p>
+    </div>
+  </div>
+
+  <!-- ── Palette ── -->
+  <div class="ds-section" style="margin-top:var(--sc-space-12);">
+    <div class="ds-label">Palette couleurs</div>
+
+    <p style="font-size:var(--sc-text-sm);color:var(--sc-gray-500);margin-bottom:var(--sc-space-6);">
+      Extraite du master Canva officiel SYMPLYA CONTENT — <em>"bleu profond, vert doux et gris"</em>
+    </p>
+
+    <div class="ds-grid ds-cols-3" style="margin-bottom:var(--sc-space-6);">
+      <div class="swatch">
+        <div class="swatch-block" style="background:#1A2B52;"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Navy</div>
+          <div class="swatch-hex">#1A2B52</div>
+          <div class="swatch-role">Textes, titres, header</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-block" style="background:#0F1A36;"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Navy Dark</div>
+          <div class="swatch-hex">#0F1A36</div>
+          <div class="swatch-role">Footer band, accents</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-block" style="background:#2E8BBF;"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Teal — Accent</div>
+          <div class="swatch-hex">#2E8BBF</div>
+          <div class="swatch-role">CTA, PROCHAINE ÉTAPE</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ds-grid ds-cols-5">
+      <div class="swatch">
+        <div class="swatch-block" style="background:#4EAD8B;"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Vert doux</div>
+          <div class="swatch-hex">#4EAD8B</div>
+          <div class="swatch-role">Succès, tags positifs</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-block" style="background:#F2F5F9;border:1px solid #e0e5ee;"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Fond pâle</div>
+          <div class="swatch-hex">#F2F5F9</div>
+          <div class="swatch-role">Background principal</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-block" style="background:#7A8BAA;"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Gray 500</div>
+          <div class="swatch-hex">#7A8BAA</div>
+          <div class="swatch-role">Texte secondaire</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-block" style="background:#E8A03A;"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Warning</div>
+          <div class="swatch-hex">#E8A03A</div>
+          <div class="swatch-role">Alerte, attention</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-block" style="background:#D04B5E;"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Danger</div>
+          <div class="swatch-hex">#D04B5E</div>
+          <div class="swatch-role">Erreur, critique</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Typographie ── -->
+  <div class="ds-section">
+    <div class="ds-label">Typographie — Inter</div>
+    <div class="ds-grid" style="gap:var(--sc-space-3);">
+      <div class="type-row">
+        <div style="font-size:var(--sc-text-4xl);font-weight:var(--sc-font-bold);color:var(--sc-navy);">Titre principal H1</div>
+        <div class="type-meta">Inter Bold · 36px · Navy #1A2B52</div>
+      </div>
+      <div class="type-row">
+        <div style="font-size:var(--sc-text-3xl);font-weight:var(--sc-font-semibold);color:var(--sc-navy);">Section H2</div>
+        <div class="type-meta">Inter SemiBold · 30px</div>
+      </div>
+      <div class="type-row">
+        <div style="font-size:var(--sc-text-xl);font-style:italic;color:var(--sc-navy-medium);">L'IA simple pour gagner du temps.</div>
+        <div class="type-meta">Inter Italic · 20px · Tagline — Navy medium</div>
+      </div>
+      <div class="type-row">
+        <div><span class="sc-keyword">ORGANISER :</span> Menus • Courses • Planning</div>
+        <div class="type-meta">Inter Bold Uppercase · Keyword label</div>
+      </div>
+      <div class="type-row">
+        <div>Corps de texte. Style moderne et épuré pour que chaque idée soit comprise vite et bien, surtout sur mobile.</div>
+        <div class="type-meta">Inter Regular · 16px · Navy</div>
+      </div>
+      <div class="type-row">
+        <div class="sc-serie">SÉRIE 1 / 6</div>
+        <div class="type-meta">Inter Medium Uppercase · 12px · Gray 500</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Boutons ── -->
+  <div class="ds-section">
+    <div class="ds-label">Boutons</div>
+    <div class="sc-card">
+      <div class="sc-card-body" style="display:flex;flex-direction:column;gap:var(--sc-space-5);">
+        <div class="btn-row">
+          <button class="sc-btn sc-btn-navy">Découvrir la série</button>
+          <button class="sc-btn sc-btn-teal">Prochaine étape →</button>
+          <button class="sc-btn sc-btn-outline">En savoir plus</button>
+          <button class="sc-btn sc-btn-ghost">Mot de passe oublié ?</button>
+          <button class="sc-btn sc-btn-green">Terminé ✓</button>
+        </div>
+        <div class="sc-divider" style="margin:0;"></div>
+        <div class="btn-row">
+          <button class="sc-btn sc-btn-navy sc-btn-sm">Petit</button>
+          <button class="sc-btn sc-btn-navy">Moyen</button>
+          <button class="sc-btn sc-btn-navy sc-btn-lg">Grand</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Badges ── -->
+  <div class="ds-section">
+    <div class="ds-label">Badges</div>
+    <div class="sc-card">
+      <div class="sc-card-body" style="display:flex;flex-wrap:wrap;gap:var(--sc-space-3);align-items:center;">
+        <span class="sc-badge sc-badge-navy">SÉRIE IA</span>
+        <span class="sc-badge sc-badge-teal">En cours</span>
+        <span class="sc-badge sc-badge-green">Terminé</span>
+        <span class="sc-badge sc-badge-warning">À valider</span>
+        <span class="sc-badge sc-badge-danger">Annulé</span>
+        <span class="sc-badge sc-badge-gray">Planifié</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Slide démo ── -->
+  <div class="ds-section">
+    <div class="ds-label">Composant Slide — Format contenu</div>
+    <div class="sc-slide">
+      <div class="sc-slide-header" style="display:flex;align-items:center;justify-content:space-between;padding:var(--sc-space-4) var(--sc-space-8);">
+        <div>
+          <div class="sc-brand-name">SYMPLYA <span style="color:var(--sc-teal);">CONTENT</span></div>
+          <div class="sc-brand-sub" style="font-style:italic;color:var(--sc-gray-500);font-size:var(--sc-text-xs);">L'IA simple pour gagner du temps.</div>
+        </div>
+        <span class="sc-serie">SÉRIE 1 / 6</span>
+      </div>
+
+      <div class="sc-slide-body">
+        <p style="font-size:var(--sc-text-xl);font-weight:var(--sc-font-semibold);margin-bottom:var(--sc-space-4);color:var(--sc-navy);">L'IA peut t'aider au quotidien.</p>
+        <p style="margin-bottom:var(--sc-space-6);color:var(--sc-navy);">Un premier repère simple : l'IA devient utile quand ta demande est claire.</p>
+        <ul class="sc-checklist" style="margin-bottom:var(--sc-space-8);">
+          <li><span><span class="sc-keyword">Organiser :</span> Menus · Courses · Planning</span></li>
+          <li><span><span class="sc-keyword">Comprendre :</span> Recherche · Résumé · Explication</span></li>
+          <li><span><span class="sc-keyword">Rédiger :</span> Courriers · Messages · Idées</span></li>
+        </ul>
+        <a href="#" class="sc-next-step">Prochaine étape — Créer des menus adaptés à ta vraie vie</a>
+      </div>
+
+      <div class="sc-slide-footer">
+        SYMPLYA <span class="sc-sep">•</span> Structurer <span class="sc-sep">•</span> Assister <span class="sc-sep">•</span> Automatiser
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Alertes ── -->
+  <div class="ds-section">
+    <div class="ds-label">Alertes</div>
+    <div class="ds-grid" style="gap:var(--sc-space-3);">
+      <div class="sc-alert sc-alert-navy">ℹ️ Nouvelle série disponible — ChatGPT pour les TPE/PME.</div>
+      <div class="sc-alert sc-alert-success">✅ Série publiée avec succès. 6 slides validées.</div>
+      <div class="sc-alert sc-alert-warning">⚠️ Audit en attente de validation avant publication.</div>
+      <div class="sc-alert sc-alert-danger">❌ La slide dépasse le format imposé. Vérifier le contenu.</div>
+    </div>
+  </div>
+
+  <!-- ── Formulaire ── -->
+  <div class="ds-section">
+    <div class="ds-label">Formulaire</div>
+    <div class="sc-card" style="max-width:440px;margin:0 auto;">
+      <div class="sc-card-header">
+        <h3 style="font-size:var(--sc-text-xl);">Accéder aux séries</h3>
+        <p class="sc-text-muted" style="font-size:var(--sc-text-sm);margin-top:4px;">Recevez chaque série directement dans votre boîte mail.</p>
+      </div>
+      <div class="sc-card-body" style="display:flex;flex-direction:column;gap:var(--sc-space-5);">
+        <div class="sc-form-group">
+          <label class="sc-label">Prénom</label>
+          <input class="sc-input" type="text" placeholder="Camille">
+        </div>
+        <div class="sc-form-group">
+          <label class="sc-label">Adresse email</label>
+          <input class="sc-input" type="email" placeholder="camille@exemple.fr">
+        </div>
+        <button class="sc-btn sc-btn-navy sc-w-full" style="align-self:stretch;">Je m'abonne →</button>
+        <p style="font-size:var(--sc-text-xs);color:var(--sc-gray-500);text-align:center;">Pas de spam. Désabonnement en 1 clic.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Comparatif SYMPLYA vs SYMPLYA CONTENT ── -->
+  <div class="ds-section">
+    <div class="ds-label">Différenciation — SYMPLYA vs SYMPLYA CONTENT</div>
+    <div class="ds-grid ds-cols-2">
+      <div class="sc-card">
+        <div class="sc-card-header" style="background:#2C88D9;color:white;">
+          <div style="font-weight:var(--sc-font-bold);letter-spacing:0.06em;text-transform:uppercase;">SYMPLYA</div>
+          <div style="font-size:var(--sc-text-xs);opacity:0.8;margin-top:2px;">Portail client · ERP · Gestion</div>
+        </div>
+        <div class="sc-card-body" style="display:flex;flex-direction:column;gap:var(--sc-space-3);">
+          <div style="display:flex;gap:var(--sc-space-2);">
+            <span style="width:20px;height:20px;background:#2C88D9;border-radius:4px;flex-shrink:0;"></span>
+            <div>
+              <div style="font-size:var(--sc-text-xs);font-weight:var(--sc-font-semibold);">Blue #2C88D9</div>
+              <div style="font-size:10px;color:var(--sc-gray-500);">CTA Principal</div>
+            </div>
+          </div>
+          <div style="display:flex;gap:var(--sc-space-2);">
+            <span style="width:20px;height:20px;background:#6558F5;border-radius:4px;flex-shrink:0;"></span>
+            <div>
+              <div style="font-size:var(--sc-text-xs);font-weight:var(--sc-font-semibold);">Indigo #6558F5</div>
+              <div style="font-size:10px;color:var(--sc-gray-500);">Secondaire · Navigation</div>
+            </div>
+          </div>
+          <div style="display:flex;gap:var(--sc-space-2);">
+            <span style="width:20px;height:20px;background:#1AAE9F;border-radius:4px;flex-shrink:0;"></span>
+            <div>
+              <div style="font-size:var(--sc-text-xs);font-weight:var(--sc-font-semibold);">Mint #1AAE9F</div>
+              <div style="font-size:10px;color:var(--sc-gray-500);">Succès · Progression</div>
+            </div>
+          </div>
+          <div style="font-size:var(--sc-text-xs);color:var(--sc-gray-500);margin-top:var(--sc-space-2);">Palette tech · SaaS · Productivité</div>
+        </div>
+      </div>
+
+      <div class="sc-card">
+        <div class="sc-card-header" style="background:#0F1A36;color:white;">
+          <div style="font-weight:var(--sc-font-bold);letter-spacing:0.06em;text-transform:uppercase;">SYMPLYA <span style="color:#2E8BBF;">CONTENT</span></div>
+          <div style="font-size:var(--sc-text-xs);opacity:0.8;margin-top:2px;">Séries · IA · Pédagogie</div>
+        </div>
+        <div class="sc-card-body" style="display:flex;flex-direction:column;gap:var(--sc-space-3);">
+          <div style="display:flex;gap:var(--sc-space-2);">
+            <span style="width:20px;height:20px;background:#1A2B52;border-radius:4px;flex-shrink:0;"></span>
+            <div>
+              <div style="font-size:var(--sc-text-xs);font-weight:var(--sc-font-semibold);">Navy #1A2B52</div>
+              <div style="font-size:10px;color:var(--sc-gray-500);">Primaire · Texte · Titres</div>
+            </div>
+          </div>
+          <div style="display:flex;gap:var(--sc-space-2);">
+            <span style="width:20px;height:20px;background:#2E8BBF;border-radius:4px;flex-shrink:0;"></span>
+            <div>
+              <div style="font-size:var(--sc-text-xs);font-weight:var(--sc-font-semibold);">Teal #2E8BBF</div>
+              <div style="font-size:10px;color:var(--sc-gray-500);">Accent · CTA · Liens</div>
+            </div>
+          </div>
+          <div style="display:flex;gap:var(--sc-space-2);">
+            <span style="width:20px;height:20px;background:#4EAD8B;border-radius:4px;flex-shrink:0;"></span>
+            <div>
+              <div style="font-size:var(--sc-text-xs);font-weight:var(--sc-font-semibold);">Vert doux #4EAD8B</div>
+              <div style="font-size:10px;color:var(--sc-gray-500);">Succès · Tags positifs</div>
+            </div>
+          </div>
+          <div style="font-size:var(--sc-text-xs);color:var(--sc-gray-500);margin-top:var(--sc-space-2);">Palette éditoriale · Pédagogie · Premium</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Footer ── -->
+  <div class="sc-footer-band" style="margin-top:var(--sc-space-16);">
+    SYMPLYA <span class="sc-sep">•</span> Structurer <span class="sc-sep">•</span> Assister <span class="sc-sep">•</span> Automatiser
+  </div>
+
+</body>
+</html>

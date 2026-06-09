@@ -1,0 +1,367 @@
+/* ============================================================
+   SYMPLYA CONTENT — Composants CSS
+   Importer après symplya-content-tokens.css
+   Style : minimaliste · épuré · premium · mobile-first
+   ============================================================ */
+
+/* ── Reset minimal ───────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--sc-font);
+  font-size: var(--sc-text-base);
+  color: var(--sc-navy);
+  background-color: var(--sc-bg);
+  line-height: var(--sc-leading-normal);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Conteneur ───────────────────────────────────────────── */
+.sc-container {
+  width: 100%;
+  max-width: var(--sc-container-xl);
+  margin-inline: auto;
+  padding-inline: var(--sc-space-6);
+}
+.sc-container-sm { max-width: var(--sc-container-sm); }
+.sc-container-md { max-width: var(--sc-container-md); }
+
+/* ── Typographie ─────────────────────────────────────────── */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--sc-font);
+  color: var(--sc-navy);
+  line-height: var(--sc-leading-tight);
+}
+h1 { font-size: var(--sc-text-4xl); font-weight: var(--sc-font-bold);     }
+h2 { font-size: var(--sc-text-3xl); font-weight: var(--sc-font-semibold); }
+h3 { font-size: var(--sc-text-2xl); font-weight: var(--sc-font-semibold); }
+h4 { font-size: var(--sc-text-xl);  font-weight: var(--sc-font-semibold); }
+h5 { font-size: var(--sc-text-lg);  font-weight: var(--sc-font-medium);   }
+h6 { font-size: var(--sc-text-base);font-weight: var(--sc-font-medium);   }
+
+/* Tagline centrée — style "L'IA simple pour gagner du temps." */
+.sc-tagline {
+  font-size: var(--sc-text-xl);
+  font-weight: var(--sc-font-normal);
+  color: var(--sc-navy-medium);
+  text-align: center;
+  font-style: italic;
+  letter-spacing: 0.01em;
+}
+
+/* Keyword label — style "ORGANISER : " bold uppercase */
+.sc-keyword {
+  font-weight: var(--sc-font-bold);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--sc-navy);
+}
+
+/* Série badge — style "SÉRIE 1 / 6" */
+.sc-serie {
+  font-size: var(--sc-text-sm);
+  font-weight: var(--sc-font-medium);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--sc-gray-500);
+}
+
+/* CTA inline — style "PROCHAINE ÉTAPE →" */
+.sc-next-step {
+  font-size: var(--sc-text-base);
+  font-weight: var(--sc-font-medium);
+  color: var(--sc-teal);
+  text-decoration: none;
+  transition: color var(--sc-transition);
+}
+.sc-next-step::after { content: ' →'; }
+.sc-next-step:hover  { color: var(--sc-teal-dark); }
+
+.sc-text-muted    { color: var(--sc-gray-500); }
+.sc-text-navy     { color: var(--sc-navy); }
+.sc-text-teal     { color: var(--sc-teal); }
+.sc-text-green    { color: var(--sc-green); }
+
+/* ── Header / Navbar — identique aux slides Canva ────────── */
+.sc-navbar {
+  background: var(--sc-white);
+  border-bottom: var(--sc-border-light);
+  padding: var(--sc-space-4) var(--sc-space-6);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: var(--sc-shadow-xs);
+}
+
+.sc-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-decoration: none;
+}
+.sc-brand-name {
+  font-size: var(--sc-text-sm);
+  font-weight: var(--sc-font-bold);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--sc-navy);
+}
+.sc-brand-name span { color: var(--sc-teal); }
+.sc-brand-sub {
+  font-size: var(--sc-text-xs);
+  color: var(--sc-gray-500);
+  font-style: italic;
+}
+
+/* ── Footer band — "SYMPLYA • Structurer • Assister • Automatiser" */
+.sc-footer-band {
+  background: var(--sc-navy-dark);
+  color: var(--sc-white);
+  text-align: center;
+  padding: var(--sc-space-4) var(--sc-space-6);
+  font-size: var(--sc-text-sm);
+  font-weight: var(--sc-font-medium);
+  letter-spacing: 0.06em;
+}
+.sc-footer-band .sc-sep { opacity: 0.4; margin-inline: var(--sc-space-3); }
+
+/* ── Slide layout (1920×1080 style, adapté web) ──────────── */
+.sc-slide {
+  background: var(--sc-bg);
+  border-radius: var(--sc-radius-xl);
+  overflow: hidden;
+  box-shadow: var(--sc-shadow-md);
+  display: flex;
+  flex-direction: column;
+}
+.sc-slide-header {
+  background: var(--sc-white);
+  padding: var(--sc-space-5) var(--sc-space-8);
+  text-align: center;
+  border-bottom: var(--sc-border-light);
+}
+.sc-slide-header .sc-brand-name { font-size: var(--sc-text-base); }
+.sc-slide-header .sc-tagline    { font-size: var(--sc-text-sm); margin-top: 2px; font-style: italic; }
+
+.sc-slide-body {
+  flex: 1;
+  padding: var(--sc-space-8) var(--sc-space-10);
+}
+.sc-slide-footer {
+  background: var(--sc-navy-dark);
+  padding: var(--sc-space-3) var(--sc-space-8);
+  text-align: center;
+  color: var(--sc-white);
+  font-size: var(--sc-text-sm);
+  letter-spacing: 0.05em;
+}
+
+/* ── Boutons ─────────────────────────────────────────────── */
+.sc-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sc-space-2);
+  padding: var(--sc-space-3) var(--sc-space-6);
+  font-family: var(--sc-font);
+  font-size: var(--sc-text-sm);
+  font-weight: var(--sc-font-semibold);
+  border-radius: var(--sc-radius-md);
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+  letter-spacing: 0.02em;
+  transition: all var(--sc-transition);
+}
+.sc-btn:focus-visible {
+  outline: 2px solid var(--sc-navy);
+  outline-offset: 2px;
+}
+
+/* Navy — primaire */
+.sc-btn-navy {
+  background: var(--sc-navy);
+  color: var(--sc-white);
+}
+.sc-btn-navy:hover { background: var(--sc-navy-dark); }
+
+/* Teal — CTA, PROCHAINE ÉTAPE */
+.sc-btn-teal {
+  background: var(--sc-teal);
+  color: var(--sc-white);
+}
+.sc-btn-teal:hover { background: var(--sc-teal-dark); }
+
+/* Outline navy */
+.sc-btn-outline {
+  background: transparent;
+  color: var(--sc-navy);
+  border-color: var(--sc-navy);
+}
+.sc-btn-outline:hover { background: var(--sc-navy-light); }
+
+/* Ghost teal */
+.sc-btn-ghost {
+  background: transparent;
+  color: var(--sc-teal);
+  border-color: transparent;
+}
+.sc-btn-ghost:hover { background: var(--sc-teal-light); }
+
+/* Green */
+.sc-btn-green {
+  background: var(--sc-green);
+  color: var(--sc-white);
+}
+.sc-btn-green:hover { background: var(--sc-green-dark); }
+
+/* Tailles */
+.sc-btn-sm { padding: var(--sc-space-2) var(--sc-space-4); font-size: var(--sc-text-xs); }
+.sc-btn-lg { padding: var(--sc-space-4) var(--sc-space-8); font-size: var(--sc-text-base); }
+
+/* ── Badges / Tags ───────────────────────────────────────── */
+.sc-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px var(--sc-space-3);
+  font-size: var(--sc-text-xs);
+  font-weight: var(--sc-font-semibold);
+  letter-spacing: 0.04em;
+  border-radius: var(--sc-radius-full);
+}
+.sc-badge-navy   { background: var(--sc-navy-light);   color: var(--sc-navy-dark); }
+.sc-badge-teal   { background: var(--sc-teal-light);   color: var(--sc-teal-dark); }
+.sc-badge-green  { background: var(--sc-green-light);  color: var(--sc-green-dark); }
+.sc-badge-gray   { background: var(--sc-gray-100);     color: var(--sc-gray-700); }
+.sc-badge-warning{ background: var(--sc-warning-light);color: var(--sc-warning); }
+.sc-badge-danger { background: var(--sc-danger-light); color: var(--sc-danger); }
+
+/* ── Cartes — épurées, beaucoup d'espace blanc ───────────── */
+.sc-card {
+  background: var(--sc-white);
+  border: var(--sc-border-light);
+  border-radius: var(--sc-radius-xl);
+  box-shadow: var(--sc-shadow-sm);
+  overflow: hidden;
+}
+.sc-card:hover { box-shadow: var(--sc-shadow-md); }
+
+.sc-card-header {
+  padding: var(--sc-space-5) var(--sc-space-6);
+  border-bottom: var(--sc-border-light);
+}
+.sc-card-body   { padding: var(--sc-space-6); }
+.sc-card-footer {
+  padding: var(--sc-space-4) var(--sc-space-6);
+  border-top: var(--sc-border-light);
+  background: var(--sc-bg);
+}
+
+/* ── Formulaires ─────────────────────────────────────────── */
+.sc-form-group { display: flex; flex-direction: column; gap: var(--sc-space-2); }
+
+.sc-label {
+  font-size: var(--sc-text-sm);
+  font-weight: var(--sc-font-medium);
+  color: var(--sc-navy);
+  letter-spacing: 0.01em;
+}
+
+.sc-input {
+  width: 100%;
+  padding: var(--sc-space-3) var(--sc-space-4);
+  font-size: var(--sc-text-base);
+  font-family: var(--sc-font);
+  color: var(--sc-navy);
+  background: var(--sc-white);
+  border: 1px solid var(--sc-gray-300);
+  border-radius: var(--sc-radius-md);
+  transition: border-color var(--sc-transition), box-shadow var(--sc-transition);
+}
+.sc-input::placeholder { color: var(--sc-gray-500); }
+.sc-input:focus {
+  outline: none;
+  border-color: var(--sc-navy);
+  box-shadow: 0 0 0 3px var(--sc-navy-light);
+}
+
+/* ── Alertes ─────────────────────────────────────────────── */
+.sc-alert {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sc-space-3);
+  padding: var(--sc-space-4) var(--sc-space-5);
+  border-radius: var(--sc-radius-md);
+  font-size: var(--sc-text-sm);
+  border-left: 3px solid;
+}
+.sc-alert-info    { background: var(--sc-teal-light);  color: var(--sc-teal-dark);  border-color: var(--sc-teal); }
+.sc-alert-success { background: var(--sc-green-light); color: var(--sc-green-dark); border-color: var(--sc-green); }
+.sc-alert-warning { background: var(--sc-warning-light);color: var(--sc-warning);   border-color: var(--sc-warning); }
+.sc-alert-danger  { background: var(--sc-danger-light); color: var(--sc-danger);    border-color: var(--sc-danger); }
+.sc-alert-navy    { background: var(--sc-navy-light);  color: var(--sc-navy-dark);  border-color: var(--sc-navy); }
+
+/* ── Section hero — fond navy profond ────────────────────── */
+.sc-hero {
+  background: var(--sc-navy-dark);
+  color: var(--sc-white);
+  text-align: center;
+  padding: var(--sc-space-20) var(--sc-space-6);
+}
+.sc-hero h1, .sc-hero h2 { color: var(--sc-white); }
+.sc-hero .sc-tagline { color: rgba(255,255,255,0.75); font-style: italic; }
+.sc-hero-accent { color: var(--sc-teal); }
+
+/* ── Liste points forts — style slides ───────────────────── */
+.sc-checklist { list-style: none; display: flex; flex-direction: column; gap: var(--sc-space-4); }
+.sc-checklist li {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sc-space-3);
+  font-size: var(--sc-text-base);
+  line-height: var(--sc-leading-normal);
+}
+.sc-checklist li::before {
+  content: '→';
+  color: var(--sc-teal);
+  font-weight: var(--sc-font-bold);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+/* ── Séparateur ──────────────────────────────────────────── */
+.sc-divider {
+  height: 1px;
+  background: var(--sc-gray-100);
+  margin-block: var(--sc-space-6);
+}
+
+/* ── Barre de progression ────────────────────────────────── */
+.sc-progress {
+  height: 6px;
+  background: var(--sc-gray-100);
+  border-radius: var(--sc-radius-full);
+  overflow: hidden;
+}
+.sc-progress-bar {
+  height: 100%;
+  border-radius: var(--sc-radius-full);
+  background: var(--sc-teal);
+  transition: width 500ms var(--sc-ease);
+}
+.sc-progress-bar.navy  { background: var(--sc-navy); }
+.sc-progress-bar.green { background: var(--sc-green); }
+
+/* ── Grid utilitaires ────────────────────────────────────── */
+.sc-grid-2 { display: grid; grid-template-columns: repeat(2,1fr); gap: var(--sc-space-6); }
+.sc-grid-3 { display: grid; grid-template-columns: repeat(3,1fr); gap: var(--sc-space-6); }
+@media (max-width: 768px) {
+  .sc-grid-2, .sc-grid-3 { grid-template-columns: 1fr; }
+}
+
+.sc-flex         { display: flex; }
+.sc-items-center { align-items: center; }
+.sc-gap-4        { gap: var(--sc-space-4); }
+.sc-w-full       { width: 100%; }
+.sc-text-center  { text-align: center; }
