@@ -1,36 +1,105 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Portail Client — Espace Client
 
-## Getting Started
+Portail web permettant aux clients de suivre l'avancement de leurs projets en temps réel.
 
-First, run the development server:
+**Stack :** Next.js 15 · Supabase Auth · Airtable API · Tailwind CSS · Vercel
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+---
+
+## Architecture
+
+```
+Client → Magic Link Email (Supabase)
+       → Dashboard projets (filtrés par email)
+       → Détail projet + étapes (données Airtable)
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Les données restent dans Airtable. Supabase gère uniquement l'authentification.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Variables d'environnement
 
-## Learn More
+Copier `.env.example` en `.env.local` et remplir :
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+cp .env.example .env.local
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+| Variable | Valeur |
+|---|---|
+| `NEXT_PUBLIC_SUPABASE_URL` | `https://uawirvvcdlvqffprpmwp.supabase.co` |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Clé anon Supabase (déjà renseignée dans `.env.example`) |
+| `AIRTABLE_API_KEY` | Token Airtable à créer (voir ci-dessous) |
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Créer la clé API Airtable
 
-## Deploy on Vercel
+1. Aller sur [airtable.com/create/tokens](https://airtable.com/create/tokens)
+2. Créer un Personal Access Token avec les scopes :
+   - `data.records:read`
+   - `schema.bases:read`
+3. Donner accès à la base **Base SOFTR-Espace Client**
+4. Copier le token dans `AIRTABLE_API_KEY`
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Lancer en local
+
+```bash
+npm install
+npm run dev
+```
+
+Ouvrir [http://localhost:3000](http://localhost:3000)
+
+---
+
+## Déployer sur Vercel
+
+### 1. Connecter le dépôt
+
+1. Aller sur [vercel.com/new](https://vercel.com/new)
+2. Importer le dépôt `camjuke-create/Chatgpt_postman`
+3. Dans **Root Directory**, saisir : `client-portal`
+4. Cliquer **Deploy** (Vercel détecte automatiquement Next.js)
+
+### 2. Ajouter les variables d'environnement
+
+Dans Vercel → Settings → Environment Variables, ajouter :
+
+```
+NEXT_PUBLIC_SUPABASE_URL   = https://uawirvvcdlvqffprpmwp.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY = eyJhbGciOiJI...
+AIRTABLE_API_KEY           = patXXXXXXXXX
+```
+
+### 3. Configurer Supabase
+
+Dans le [Dashboard Supabase](https://supabase.com/dashboard/project/uawirvvcdlvqffprpmwp) :
+
+- **Authentication → URL Configuration**
+  - Site URL : `https://ton-domaine.vercel.app`
+  - Redirect URLs : `https://ton-domaine.vercel.app/auth/callback`
+- **Authentication → Providers**
+  - Email : activé (magic link = OTP par email)
+
+---
+
+## Structure du projet
+
+```
+client-portal/
+├── app/
+│   ├── page.tsx              # Page de connexion (magic link)
+│   ├── dashboard/page.tsx    # Liste des projets du client
+│   ├── projet/[id]/page.tsx  # Détail projet + étapes
+│   └── auth/callback/route.ts
+├── components/
+│   ├── Navbar.tsx
+│   ├── ProjectCard.tsx
+│   └── EtapeRow.tsx
+├── lib/
+│   ├── airtable.ts           # Requêtes Airtable (Client, Projet, Etapes, Team)
+│   └── supabase/             # Client browser + server
+└── proxy.ts                  # Protection des routes (Next.js 15)
+```
