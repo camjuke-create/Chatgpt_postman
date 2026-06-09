@@ -24,6 +24,9 @@ build/
 # vercel
 .vercel
 
+# typescript build cache
+*.tsbuildinfo
+
 # misc
 .DS_Store
 *.pem
