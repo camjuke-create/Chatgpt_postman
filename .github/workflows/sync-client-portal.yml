@@ -2,6 +2,11 @@ name: Sync client-portal to dedicated repo
 
 on:
   workflow_dispatch:
+  schedule:
+    - cron: '*/15 * * * *'
+
+env:
+  GH_PAT: ${{ secrets.GH_PAT }}
 
 jobs:
   sync:
@@ -16,7 +21,13 @@ jobs:
           git config user.email "action@github.com"
           git config user.name "GitHub Actions"
 
-      - name: Push client-portal-export branch to client-portal repo
+      - name: Push client-portal-export to client-portal repo
         run: |
+          if [ -z "$GH_PAT" ]; then
+            echo "GH_PAT secret not set yet — add it at: Settings > Secrets > Actions > New secret"
+            exit 0
+          fi
           git fetch origin client-portal-export
-          git push https://x-access-token:${{ secrets.GH_PAT }}@github.com/camjuke-create/client-portal.git origin/client-portal-export:main --force
+          git push "https://x-access-token:${GH_PAT}@github.com/camjuke-create/client-portal.git" \
+            origin/client-portal-export:main --force
+          echo "SUCCESS: code pushed to client-portal"
