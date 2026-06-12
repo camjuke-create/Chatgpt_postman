@@ -1,0 +1,147 @@
+name: Configure Vercel for client-portal
+
+on:
+  workflow_dispatch:
+    inputs:
+      project_name:
+        description: 'Vercel project name (leave blank for auto-detect)'
+        required: false
+        default: ''
+
+jobs:
+  configure:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get client-portal GitHub repo ID
+        id: github_repo
+        env:
+          GH_PAT: ${{ secrets.GH_PAT }}
+        run: |
+          REPO=$(curl -s "https://api.github.com/repos/camjuke-create/client-portal" \
+            -H "Authorization: Bearer $GH_PAT" \
+            -H "Accept: application/vnd.github.v3+json")
+          REPO_ID=$(echo "$REPO" | jq '.id')
+          echo "repo_id=$REPO_ID" >> $GITHUB_OUTPUT
+          echo "client-portal GitHub repo ID: $REPO_ID"
+
+      - name: Find Vercel project
+        id: vercel_project
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: |
+          PROJECTS=$(curl -s "https://api.vercel.com/v9/projects?limit=100" \
+            -H "Authorization: Bearer $VERCEL_TOKEN")
+
+          MANUAL_NAME="${{ inputs.project_name }}"
+
+          if [ -n "$MANUAL_NAME" ]; then
+            PROJECT_ID=$(echo "$PROJECTS" | jq -r --arg n "$MANUAL_NAME" '.projects[] | select(.name == $n) | .id' | head -1)
+            PROJECT_NAME="$MANUAL_NAME"
+          else
+            # Auto-detect: find project linked to Chatgpt_postman
+            PROJECT_ID=$(echo "$PROJECTS" | jq -r '.projects[] | select((.link.repo // "") | test("(?i)chatgpt")) | .id' | head -1)
+            PROJECT_NAME=$(echo "$PROJECTS" | jq -r '.projects[] | select((.link.repo // "") | test("(?i)chatgpt")) | .name' | head -1)
+          fi
+
+          if [ -z "$PROJECT_ID" ] || [ "$PROJECT_ID" = "null" ]; then
+            echo "ERROR: Could not find Vercel project. Re-run with project_name input set."
+            echo "Available projects:"
+            echo "$PROJECTS" | jq -r '.projects[] | "\(.name) — \(.link.repo // "no git")"'
+            exit 1
+          fi
+
+          echo "project_id=$PROJECT_ID" >> $GITHUB_OUTPUT
+          echo "project_name=$PROJECT_NAME" >> $GITHUB_OUTPUT
+          echo "Found Vercel project: $PROJECT_NAME ($PROJECT_ID)"
+
+      - name: Update git source and clear root directory
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: |
+          PROJECT_ID="${{ steps.vercel_project.outputs.project_id }}"
+          REPO_ID="${{ steps.github_repo.outputs.repo_id }}"
+
+          RESULT=$(curl -s -X PATCH "https://api.vercel.com/v9/projects/$PROJECT_ID" \
+            -H "Authorization: Bearer $VERCEL_TOKEN" \
+            -H "Content-Type: application/json" \
+            -d "{
+              \"rootDirectory\": null,
+              \"link\": {
+                \"type\": \"github\",
+                \"repo\": \"camjuke-create/client-portal\",
+                \"repoId\": $REPO_ID,
+                \"productionBranch\": \"main\"
+              }
+            }")
+          echo "Patch result: $(echo $RESULT | jq '{name: .name, rootDirectory: .rootDirectory, repo: .link.repo}')"
+
+      - name: Remove existing env vars (avoid duplicates)
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: |
+          PROJECT_ID="${{ steps.vercel_project.outputs.project_id }}"
+          ENVS=$(curl -s "https://api.vercel.com/v9/projects/$PROJECT_ID/env" \
+            -H "Authorization: Bearer $VERCEL_TOKEN")
+
+          for KEY in NEXT_PUBLIC_SUPABASE_URL NEXT_PUBLIC_SUPABASE_ANON_KEY AIRTABLE_API_KEY; do
+            IDS=$(echo "$ENVS" | jq -r --arg k "$KEY" '.envs[] | select(.key == $k) | .id')
+            for ID in $IDS; do
+              curl -s -X DELETE "https://api.vercel.com/v9/projects/$PROJECT_ID/env/$ID" \
+                -H "Authorization: Bearer $VERCEL_TOKEN" > /dev/null
+              echo "Deleted existing $KEY ($ID)"
+            done
+          done
+
+      - name: Add environment variables
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          AIRTABLE_API_KEY: ${{ secrets.AIRTABLE_API_KEY }}
+        run: |
+          PROJECT_ID="${{ steps.vercel_project.outputs.project_id }}"
+          TARGETS='["production","preview","development"]'
+
+          add_env() {
+            KEY=$1; VALUE=$2; TYPE=$3
+            RESULT=$(curl -s -X POST "https://api.vercel.com/v10/projects/$PROJECT_ID/env" \
+              -H "Authorization: Bearer $VERCEL_TOKEN" \
+              -H "Content-Type: application/json" \
+              -d "{\"key\":\"$KEY\",\"value\":\"$VALUE\",\"type\":\"$TYPE\",\"target\":$TARGETS}")
+            echo "$KEY: $(echo $RESULT | jq '{id: .id, error: .error}')"
+          }
+
+          add_env "NEXT_PUBLIC_SUPABASE_URL" \
+            "https://uawirvvcdlvqffprpmwp.supabase.co" \
+            "plain"
+
+          add_env "NEXT_PUBLIC_SUPABASE_ANON_KEY" \
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVhd2lydnZjZGx2cWZmcHJwbXdwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk4OTg5NzQsImV4cCI6MjA5NTQ3NDk3NH0.qPhm7uFU-jtrnuG_7-bI5tPDSZH4WCv7vBzC9RgLcDU" \
+            "plain"
+
+          if [ -n "$AIRTABLE_API_KEY" ]; then
+            add_env "AIRTABLE_API_KEY" "$AIRTABLE_API_KEY" "encrypted"
+            echo "AIRTABLE_API_KEY added."
+          else
+            echo "WARNING: AIRTABLE_API_KEY secret not set — skipped. Add it in GitHub Secrets."
+          fi
+
+      - name: Trigger fresh deployment
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: |
+          PROJECT_ID="${{ steps.vercel_project.outputs.project_id }}"
+          REPO_ID="${{ steps.github_repo.outputs.repo_id }}"
+
+          RESULT=$(curl -s -X POST "https://api.vercel.com/v13/deployments" \
+            -H "Authorization: Bearer $VERCEL_TOKEN" \
+            -H "Content-Type: application/json" \
+            -d "{
+              \"name\": \"${{ steps.vercel_project.outputs.project_name }}\",
+              \"project\": \"$PROJECT_ID\",
+              \"gitSource\": {
+                \"type\": \"github\",
+                \"repoId\": \"$REPO_ID\",
+                \"ref\": \"main\"
+              }
+            }")
+          URL=$(echo "$RESULT" | jq -r '.url // .error.message // "see Vercel dashboard"')
+          echo "Deployment triggered: $URL"
