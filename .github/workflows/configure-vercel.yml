@@ -11,19 +11,11 @@ on:
 jobs:
   configure:
     runs-on: ubuntu-latest
-    steps:
-      - name: Get client-portal GitHub repo ID
-        id: github_repo
-        env:
-          GH_PAT: ${{ secrets.GH_PAT }}
-        run: |
-          REPO=$(curl -s "https://api.github.com/repos/camjuke-create/client-portal" \
-            -H "Authorization: Bearer $GH_PAT" \
-            -H "Accept: application/vnd.github.v3+json")
-          REPO_ID=$(echo "$REPO" | jq '.id')
-          echo "repo_id=$REPO_ID" >> $GITHUB_OUTPUT
-          echo "client-portal GitHub repo ID: $REPO_ID"
+    env:
+      # client-portal GitHub repo ID (camjuke-create/client-portal, id=1264499739)
+      CLIENT_PORTAL_REPO_ID: 1264499739
 
+    steps:
       - name: Find Vercel project
         id: vercel_project
         env:
@@ -59,7 +51,7 @@ jobs:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
         run: |
           PROJECT_ID="${{ steps.vercel_project.outputs.project_id }}"
-          REPO_ID="${{ steps.github_repo.outputs.repo_id }}"
+          REPO_ID="$CLIENT_PORTAL_REPO_ID"
 
           RESULT=$(curl -s -X PATCH "https://api.vercel.com/v9/projects/$PROJECT_ID" \
             -H "Authorization: Bearer $VERCEL_TOKEN" \
@@ -129,7 +121,7 @@ jobs:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
         run: |
           PROJECT_ID="${{ steps.vercel_project.outputs.project_id }}"
-          REPO_ID="${{ steps.github_repo.outputs.repo_id }}"
+          REPO_ID="$CLIENT_PORTAL_REPO_ID"
 
           RESULT=$(curl -s -X POST "https://api.vercel.com/v13/deployments" \
             -H "Authorization: Bearer $VERCEL_TOKEN" \
