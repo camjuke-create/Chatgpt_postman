@@ -23,21 +23,20 @@ jobs:
           echo "Current state:"
           echo "$STATE" | jq '{name: .name, rootDirectory: .rootDirectory, repo: (.link.repo // "null"), repoId: (.link.repoId // "null")}'
 
-      - name: Clear rootDirectory and update git source
+      - name: Clear rootDirectory only
         env:
           VERCEL_TOKEN: ${{ secrets.NEW_VERCEL_TOKEN || secrets.VERCEL_TOKEN }}
         run: |
           PROJECT_ID="${{ steps.state.outputs.project_id }}"
-          REPO_ID="$CLIENT_PORTAL_REPO_ID"
 
-          # Try clearing rootDirectory with empty string
+          # PATCH only rootDirectory — no link field (API rejects mixed patches)
           RESULT=$(curl -s -X PATCH "https://api.vercel.com/v9/projects/$PROJECT_ID" \
             -H "Authorization: Bearer $VERCEL_TOKEN" \
             -H "Content-Type: application/json" \
-            -d "{\"rootDirectory\": \"\", \"link\": {\"type\": \"github\", \"repo\": \"camjuke-create/client-portal\", \"repoId\": $REPO_ID, \"productionBranch\": \"main\"}}")
+            -d '{"rootDirectory": null}')
 
-          echo "Patch response:"
-          echo "$RESULT" | jq '{name: .name, rootDirectory: .rootDirectory, repo: (.link.repo // "unchanged"), error: .error}'
+          echo "Patch rootDirectory=null response:"
+          echo "$RESULT" | jq '{name: .name, rootDirectory: .rootDirectory, error: .error}'
 
       - name: Verify final state
         env:
