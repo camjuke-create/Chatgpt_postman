@@ -7,12 +7,15 @@ on:
         description: 'Vercel project name (leave blank for auto-detect)'
         required: false
         default: ''
+      project_id:
+        description: 'Vercel project ID (prj_xxx) — skip auto-detect if provided'
+        required: false
+        default: ''
 
 jobs:
   configure:
     runs-on: ubuntu-latest
     env:
-      # client-portal GitHub repo ID (camjuke-create/client-portal, id=1264499739)
       CLIENT_PORTAL_REPO_ID: 1264499739
 
     steps:
@@ -21,24 +24,52 @@ jobs:
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
         run: |
-          PROJECTS=$(curl -s "https://api.vercel.com/v9/projects?limit=100" \
+          # If project_id provided directly, skip API lookup
+          DIRECT_ID="${{ inputs.project_id }}"
+          DIRECT_NAME="${{ inputs.project_name }}"
+
+          if [ -n "$DIRECT_ID" ]; then
+            echo "Using provided project_id: $DIRECT_ID"
+            echo "project_id=$DIRECT_ID" >> $GITHUB_OUTPUT
+            echo "project_name=${DIRECT_NAME:-client-portal}" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+
+          # Fetch project list
+          RESPONSE=$(curl -s -w "\n__HTTP_STATUS__%{http_code}" \
+            "https://api.vercel.com/v9/projects?limit=100" \
             -H "Authorization: Bearer $VERCEL_TOKEN")
 
-          MANUAL_NAME="${{ inputs.project_name }}"
+          HTTP_STATUS=$(echo "$RESPONSE" | tail -1 | sed 's/__HTTP_STATUS__//')
+          BODY=$(echo "$RESPONSE" | sed '$ d')
+
+          echo "HTTP status: $HTTP_STATUS"
+
+          if [ "$HTTP_STATUS" != "200" ]; then
+            echo "ERROR: Vercel API returned HTTP $HTTP_STATUS"
+            echo "Response: $(echo $BODY | head -c 400)"
+            echo ""
+            echo "==> Your VERCEL_TOKEN is likely a project-scoped token (prj_...)."
+            echo "==> You need a PERSONAL ACCESS TOKEN from vercel.com/account/tokens"
+            echo "==> OR re-run this workflow with the project_id input set directly."
+            exit 1
+          fi
+
+          MANUAL_NAME="$DIRECT_NAME"
 
           if [ -n "$MANUAL_NAME" ]; then
-            PROJECT_ID=$(echo "$PROJECTS" | jq -r --arg n "$MANUAL_NAME" '.projects[] | select(.name == $n) | .id' | head -1)
+            PROJECT_ID=$(echo "$BODY" | jq -r --arg n "$MANUAL_NAME" '.projects[] | select(.name == $n) | .id' | head -1)
             PROJECT_NAME="$MANUAL_NAME"
           else
-            # Auto-detect: find project linked to Chatgpt_postman
-            PROJECT_ID=$(echo "$PROJECTS" | jq -r '.projects[] | select((.link.repo // "") | test("(?i)chatgpt")) | .id' | head -1)
-            PROJECT_NAME=$(echo "$PROJECTS" | jq -r '.projects[] | select((.link.repo // "") | test("(?i)chatgpt")) | .name' | head -1)
+            PROJECT_ID=$(echo "$BODY" | jq -r '.projects[] | select((.link.repo // "") | test("(?i)chatgpt")) | .id' | head -1)
+            PROJECT_NAME=$(echo "$BODY" | jq -r '.projects[] | select((.link.repo // "") | test("(?i)chatgpt")) | .name' | head -1)
           fi
 
           if [ -z "$PROJECT_ID" ] || [ "$PROJECT_ID" = "null" ]; then
-            echo "ERROR: Could not find Vercel project. Re-run with project_name input set."
+            echo "ERROR: Could not find Vercel project linked to Chatgpt_postman."
+            echo "Re-run with project_name or project_id input set."
             echo "Available projects:"
-            echo "$PROJECTS" | jq -r '.projects[] | "\(.name) — \(.link.repo // "no git")"'
+            echo "$BODY" | jq -r '.projects[] | "\(.name) (id=\(.id)) — \(.link.repo // "no git")"'
             exit 1
           fi
 
