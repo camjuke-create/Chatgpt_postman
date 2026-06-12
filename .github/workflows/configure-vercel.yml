@@ -22,7 +22,7 @@ jobs:
       - name: Find Vercel project
         id: vercel_project
         env:
-          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_TOKEN: ${{ secrets.NEW_VERCEL_TOKEN || secrets.VERCEL_TOKEN }}
         run: |
           # If project_id provided directly, skip API lookup
           DIRECT_ID="${{ inputs.project_id }}"
@@ -79,7 +79,7 @@ jobs:
 
       - name: Update git source and clear root directory
         env:
-          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_TOKEN: ${{ secrets.NEW_VERCEL_TOKEN || secrets.VERCEL_TOKEN }}
         run: |
           PROJECT_ID="${{ steps.vercel_project.outputs.project_id }}"
           REPO_ID="$CLIENT_PORTAL_REPO_ID"
@@ -100,7 +100,7 @@ jobs:
 
       - name: Remove existing env vars (avoid duplicates)
         env:
-          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_TOKEN: ${{ secrets.NEW_VERCEL_TOKEN || secrets.VERCEL_TOKEN }}
         run: |
           PROJECT_ID="${{ steps.vercel_project.outputs.project_id }}"
           ENVS=$(curl -s "https://api.vercel.com/v9/projects/$PROJECT_ID/env" \
@@ -117,7 +117,7 @@ jobs:
 
       - name: Add environment variables
         env:
-          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_TOKEN: ${{ secrets.NEW_VERCEL_TOKEN || secrets.VERCEL_TOKEN }}
           AIRTABLE_API_KEY: ${{ secrets.AIRTABLE_API_KEY }}
         run: |
           PROJECT_ID="${{ steps.vercel_project.outputs.project_id }}"
@@ -149,7 +149,7 @@ jobs:
 
       - name: Trigger fresh deployment
         env:
-          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_TOKEN: ${{ secrets.NEW_VERCEL_TOKEN || secrets.VERCEL_TOKEN }}
         run: |
           PROJECT_ID="${{ steps.vercel_project.outputs.project_id }}"
           REPO_ID="$CLIENT_PORTAL_REPO_ID"
