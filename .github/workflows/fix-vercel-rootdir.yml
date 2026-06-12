@@ -14,24 +14,14 @@ jobs:
         env:
           VERCEL_TOKEN: ${{ secrets.NEW_VERCEL_TOKEN || secrets.VERCEL_TOKEN }}
         run: |
-          PROJECTS=$(curl -s "https://api.vercel.com/v9/projects?limit=100" \
-            -H "Authorization: Bearer $VERCEL_TOKEN")
-
-          PROJECT_ID=$(echo "$PROJECTS" | jq -r '.projects[] | select((.link.repo // "") | test("(?i)chatgpt")) | .id' | head -1)
-          PROJECT_NAME=$(echo "$PROJECTS" | jq -r '.projects[] | select((.link.repo // "") | test("(?i)chatgpt")) | .name' | head -1)
-
-          if [ -z "$PROJECT_ID" ] || [ "$PROJECT_ID" = "null" ]; then
-            echo "No project linked to Chatgpt_postman found. Listing all projects:"
-            echo "$PROJECTS" | jq -r '.projects[] | "\(.name) (id=\(.id)) rootDir=\(.rootDirectory // "null") repo=\(.link.repo // "no git")"'
-            exit 1
-          fi
-
+          # Project ID known from previous diagnostic run
+          PROJECT_ID="prj_kgGLeYSgHKKuwGnqI1SobtF39SRf"
           echo "project_id=$PROJECT_ID" >> $GITHUB_OUTPUT
-          echo "project_name=$PROJECT_NAME" >> $GITHUB_OUTPUT
 
-          ROOTDIR=$(echo "$PROJECTS" | jq -r ".projects[] | select(.id == \"$PROJECT_ID\") | .rootDirectory // \"null\"")
-          REPO=$(echo "$PROJECTS" | jq -r ".projects[] | select(.id == \"$PROJECT_ID\") | .link.repo // \"null\"")
-          echo "Current state: name=$PROJECT_NAME id=$PROJECT_ID rootDirectory=$ROOTDIR repo=$REPO"
+          STATE=$(curl -s "https://api.vercel.com/v9/projects/$PROJECT_ID" \
+            -H "Authorization: Bearer $VERCEL_TOKEN")
+          echo "Current state:"
+          echo "$STATE" | jq '{name: .name, rootDirectory: .rootDirectory, repo: (.link.repo // "null"), repoId: (.link.repoId // "null")}'
 
       - name: Clear rootDirectory and update git source
         env:
