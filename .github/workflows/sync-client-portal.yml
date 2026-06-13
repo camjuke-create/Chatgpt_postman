@@ -50,7 +50,8 @@ jobs:
       - name: Push client-portal-export to client-portal repo
         run: |
           git fetch origin client-portal-export
-          # Try classic PAT format
+          # Remove the GITHUB_TOKEN extraheader set by actions/checkout — it overrides PAT credentials
+          git config --local --unset-all http.https://github.com/.extraheader || true
           git push "https://${GH_PAT}@github.com/camjuke-create/client-portal.git" \
             origin/client-portal-export:main --force
           echo "SUCCESS: code pushed to client-portal"
