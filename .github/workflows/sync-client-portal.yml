@@ -21,13 +21,36 @@ jobs:
           git config user.email "action@github.com"
           git config user.name "GitHub Actions"
 
-      - name: Push client-portal-export to client-portal repo
+      - name: Diagnose token and repo access
         run: |
           if [ -z "$GH_PAT" ]; then
-            echo "GH_PAT secret not set yet — add it at: Settings > Secrets > Actions > New secret"
-            exit 0
+            echo "ERROR: GH_PAT secret is empty"
+            exit 1
           fi
+          echo "Token length: ${#GH_PAT}"
+          TOKEN_PREFIX="${GH_PAT:0:4}"
+          echo "Token prefix: $TOKEN_PREFIX"
+
+          echo "--- Testing GitHub API auth ---"
+          AUTH_RESP=$(curl -s -w "\nHTTP:%{http_code}" \
+            -H "Authorization: token $GH_PAT" \
+            "https://api.github.com/user")
+          HTTP_CODE=$(echo "$AUTH_RESP" | tail -1 | sed 's/HTTP://')
+          echo "Auth check HTTP status: $HTTP_CODE"
+          echo "$AUTH_RESP" | head -1 | python3 -c "import sys,json; d=json.load(sys.stdin); print('Authenticated as:', d.get('login','?'))" 2>/dev/null || true
+
+          echo "--- Testing client-portal repo access ---"
+          REPO_RESP=$(curl -s -w "\nHTTP:%{http_code}" \
+            -H "Authorization: token $GH_PAT" \
+            "https://api.github.com/repos/camjuke-create/client-portal")
+          REPO_HTTP=$(echo "$REPO_RESP" | tail -1 | sed 's/HTTP://')
+          echo "Repo access HTTP status: $REPO_HTTP"
+          echo "$REPO_RESP" | head -1 | python3 -c "import sys,json; d=json.load(sys.stdin); print('Repo:', d.get('full_name','?'), '| private:', d.get('private','?'), '| error:', d.get('message','none'))" 2>/dev/null || true
+
+      - name: Push client-portal-export to client-portal repo
+        run: |
           git fetch origin client-portal-export
-          git push "https://x-access-token:${GH_PAT}@github.com/camjuke-create/client-portal.git" \
+          # Try classic PAT format
+          git push "https://${GH_PAT}@github.com/camjuke-create/client-portal.git" \
             origin/client-portal-export:main --force
           echo "SUCCESS: code pushed to client-portal"
