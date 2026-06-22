@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { createClient } from '@/lib/supabase/client'
+import SymplyaLogo from '@/components/SymplyaLogo'
 
 export default function LoginPage() {
   const [email, setEmail] = useState('')
@@ -25,11 +26,10 @@ export default function LoginPage() {
       <div className="w-full max-w-sm">
         {/* Logo */}
         <div className="text-center mb-7">
-          <div className="inline-flex items-center justify-center w-10 h-10 bg-[#1a1a1a] rounded-xl mb-4">
-            <span className="text-white font-bold text-sm">S</span>
+          <div className="flex justify-center mb-3">
+            <SymplyaLogo variant="full" className="h-16 w-auto" />
           </div>
-          <h1 className="text-xl font-semibold text-gray-900">Espace Client</h1>
-          <p className="mt-1 text-sm text-gray-400">Symplya</p>
+          <p className="text-sm text-gray-400 mt-1">Connectez-vous à votre espace client</p>
         </div>
 
         <div className="bg-white rounded-2xl border border-gray-100 p-6">
@@ -71,7 +71,7 @@ export default function LoginPage() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full py-2.5 px-4 bg-[#1a1a1a] hover:bg-black disabled:opacity-50 text-white text-sm font-medium rounded-lg transition-colors"
+                className="w-full py-2.5 px-4 bg-gradient-to-r from-[#0d2d70] to-[#39b54a] hover:opacity-90 disabled:opacity-50 text-white text-sm font-medium rounded-lg transition-opacity"
               >
                 {loading ? 'Envoi en cours…' : 'Continuer avec email'}
               </button>

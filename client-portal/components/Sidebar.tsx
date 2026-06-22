@@ -4,19 +4,17 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
 import { useRouter } from 'next/navigation'
+import SymplyaLogo from '@/components/SymplyaLogo'
 
-function Avatar({ text, size = 'md' }: { text: string; size?: 'sm' | 'md' }) {
+function Avatar({ text }: { text: string }) {
   const initials = text
     .split(' ')
     .map(w => w[0])
     .join('')
     .slice(0, 2)
     .toUpperCase()
-  const cls = size === 'sm'
-    ? 'w-6 h-6 text-[10px]'
-    : 'w-8 h-8 text-xs'
   return (
-    <div className={`${cls} rounded-lg bg-white/15 flex items-center justify-center text-white font-semibold flex-shrink-0`}>
+    <div className="w-8 h-8 rounded-lg bg-white/15 flex items-center justify-center text-white text-xs font-semibold flex-shrink-0">
       {initials}
     </div>
   )
@@ -37,9 +35,10 @@ export default function Sidebar({ nomSociete, userEmail }: { nomSociete: string;
 
   return (
     <aside className="w-56 min-h-screen bg-[#1a1a1a] flex flex-col fixed top-0 left-0 z-40">
-      {/* Workspace */}
-      <div className="px-3 py-4 border-b border-white/8">
-        <div className="flex items-center gap-2.5 px-1">
+      {/* Logo Symplya */}
+      <div className="px-4 py-4 border-b border-white/8">
+        <SymplyaLogo variant="white" className="w-8 h-8 mb-3" />
+        <div className="flex items-center gap-2.5">
           <Avatar text={nomSociete || userEmail} />
           <div className="flex-1 min-w-0">
             <p className="text-sm font-semibold text-white truncate">{nomSociete || 'Espace Client'}</p>
