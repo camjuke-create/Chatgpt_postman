@@ -1,41 +1,53 @@
 import Link from 'next/link'
 import type { Projet } from '@/lib/airtable'
 
-const IMPORTANCE_COLOR: Record<string, string> = {
-  Haute: 'bg-red-100 text-red-700',
-  Moyenne: 'bg-yellow-100 text-yellow-700',
-  Basse: 'bg-green-100 text-green-700',
+const PRIORITY_DOT: Record<string, string> = {
+  Haute:   'bg-red-400',
+  Moyenne: 'bg-amber-400',
+  Basse:   'bg-emerald-400',
 }
 
 export default function ProjectCard({ projet }: { projet: Projet }) {
+  const dot = PRIORITY_DOT[projet.importance] ?? 'bg-gray-300'
+
   return (
-    <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 flex items-center justify-between gap-4 hover:border-blue-200 transition-colors">
+    <Link
+      href={`/projet/${projet.id}`}
+      className="group flex items-center gap-4 px-4 py-3 border-b border-gray-100 last:border-0 hover:bg-gray-50/80 transition-colors"
+    >
+      <div className={`w-2 h-2 rounded-full flex-shrink-0 ${dot}`} />
+
       <div className="flex-1 min-w-0">
-        <div className="flex items-center gap-2 mb-1 flex-wrap">
-          <h2 className="font-semibold text-gray-900">{projet.objectif}</h2>
-          {projet.importance && (
-            <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${IMPORTANCE_COLOR[projet.importance] ?? 'bg-gray-100 text-gray-700'}`}>
-              {projet.importance}
-            </span>
-          )}
-        </div>
-        {projet.dateLivraison && (
-          <p className="text-sm text-gray-500">
-            Livraison :{' '}
-            {new Date(projet.dateLivraison).toLocaleDateString('fr-FR', {
-              day: 'numeric',
-              month: 'long',
-              year: 'numeric',
-            })}
-          </p>
+        <p className="text-sm font-medium text-gray-900 truncate group-hover:text-black">
+          {projet.objectif}
+        </p>
+        {projet.description && (
+          <p className="text-xs text-gray-400 truncate mt-0.5">{projet.description}</p>
         )}
       </div>
-      <Link
-        href={`/projet/${projet.id}`}
-        className="flex-shrink-0 inline-flex items-center gap-1 text-sm font-medium text-blue-600 hover:text-blue-700"
-      >
-        Voir <span aria-hidden>→</span>
-      </Link>
-    </div>
+
+      <div className="flex items-center gap-6 flex-shrink-0">
+        {projet.dateLivraison && (
+          <span className="text-xs text-gray-400 hidden sm:block">
+            {new Date(projet.dateLivraison).toLocaleDateString('fr-FR', {
+              day: 'numeric',
+              month: 'short',
+              year: 'numeric',
+            })}
+          </span>
+        )}
+        {projet.importance && (
+          <span className="text-xs text-gray-400 w-16 hidden sm:block">{projet.importance}</span>
+        )}
+        <svg
+          className="w-4 h-4 text-gray-200 group-hover:text-gray-400 transition-colors"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+        </svg>
+      </div>
+    </Link>
   )
 }
