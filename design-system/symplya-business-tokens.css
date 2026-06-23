@@ -1,0 +1,111 @@
+/* ============================================================
+   SYMPLYA BUSINESS — Design Tokens
+   Inspiré du logo officiel SYMPLYA BUSINESS
+   Palette : Navy profond · Cyan-Teal · Vert vif · Dégradé
+   Positionnement : B2B · IA concrète · Solutions simples
+   ============================================================ */
+
+:root {
+  /* ── Couleurs signature ───────────────────────────────────
+     Extraites du logo : bulle dialogue + réseau + checkmark  */
+
+  /* Navy profond — texte "SYMPLYA BUSINESS"                  */
+  --sb-navy:          #1A2B52;
+  --sb-navy-dark:     #0F1A36;
+  --sb-navy-medium:   #243A6E;
+  --sb-navy-light:    #D4DAEA;
+
+  /* Cyan / Teal — haut du dégradé, points réseau             */
+  --sb-cyan:          #17BBCF;
+  --sb-cyan-dark:     #0D96A8;
+  --sb-cyan-light:    #D2F3F7;
+
+  /* Vert vif — bas du dégradé, checkmark, tagline            */
+  --sb-green:         #2DC84A;
+  --sb-green-dark:    #1F9635;
+  --sb-green-light:   #D5F5DC;
+
+  /* ── Dégradé signature SYMPLYA BUSINESS ─────────────────
+     Direction 135° : haut-gauche cyan → bas-droite vert      */
+  --sb-gradient:           linear-gradient(135deg, #17BBCF 0%, #2DC84A 100%);
+  --sb-gradient-hover:     linear-gradient(135deg, #0D96A8 0%, #1F9635 100%);
+  --sb-gradient-soft:      linear-gradient(135deg, #D2F3F7 0%, #D5F5DC 100%);
+  --sb-gradient-vertical:  linear-gradient(180deg, #17BBCF 0%, #2DC84A 100%);
+
+  /* ── Neutres ─────────────────────────────────────────────── */
+  --sb-white:         #FFFFFF;
+  --sb-bg:            #F4F7FA;   /* Fond clair légèrement bleuté    */
+  --sb-gray-100:      #E8EDF3;
+  --sb-gray-300:      #C4CEDB;
+  --sb-gray-500:      #7A8BA8;
+  --sb-gray-700:      #475569;
+
+  /* ── Statuts ─────────────────────────────────────────────── */
+  --sb-success:       var(--sb-green);
+  --sb-success-light: var(--sb-green-light);
+  --sb-info:          var(--sb-cyan);
+  --sb-info-light:    var(--sb-cyan-light);
+  --sb-warning:       #F59E0B;
+  --sb-warning-light: #FEF3C7;
+  --sb-danger:        #EF4444;
+  --sb-danger-light:  #FEE2E2;
+
+  /* ── Typographie ─────────────────────────────────────────── */
+  --sb-font:          'Inter', 'Segoe UI', system-ui, sans-serif;
+
+  --sb-text-xs:   0.75rem;    /* 12px */
+  --sb-text-sm:   0.875rem;   /* 14px */
+  --sb-text-base: 1rem;       /* 16px */
+  --sb-text-lg:   1.125rem;   /* 18px */
+  --sb-text-xl:   1.25rem;    /* 20px */
+  --sb-text-2xl:  1.5rem;     /* 24px */
+  --sb-text-3xl:  1.875rem;   /* 30px */
+  --sb-text-4xl:  2.25rem;    /* 36px */
+
+  --sb-font-normal:   400;
+  --sb-font-medium:   500;
+  --sb-font-semibold: 600;
+  --sb-font-bold:     700;
+
+  /* ── Espacement ──────────────────────────────────────────── */
+  --sb-space-1:  0.25rem;
+  --sb-space-2:  0.5rem;
+  --sb-space-3:  0.75rem;
+  --sb-space-4:  1rem;
+  --sb-space-5:  1.25rem;
+  --sb-space-6:  1.5rem;
+  --sb-space-8:  2rem;
+  --sb-space-10: 2.5rem;
+  --sb-space-12: 3rem;
+  --sb-space-16: 4rem;
+  --sb-space-20: 5rem;
+
+  /* ── Bordures & rayons ───────────────────────────────────── */
+  --sb-radius-sm:   0.25rem;
+  --sb-radius-md:   0.5rem;
+  --sb-radius-lg:   0.75rem;
+  --sb-radius-xl:   1rem;
+  --sb-radius-2xl:  1.5rem;
+  --sb-radius-full: 9999px;
+
+  --sb-border:       1px solid var(--sb-gray-300);
+  --sb-border-light: 1px solid var(--sb-gray-100);
+
+  /* ── Ombres ──────────────────────────────────────────────── */
+  --sb-shadow-xs: 0 1px 2px 0 rgba(26, 43, 82, 0.04);
+  --sb-shadow-sm: 0 2px 6px 0 rgba(26, 43, 82, 0.07);
+  --sb-shadow-md: 0 4px 16px 0 rgba(26, 43, 82, 0.10);
+  --sb-shadow-lg: 0 8px 32px 0 rgba(26, 43, 82, 0.12);
+  /* Ombre teintée dégradé — pour cartes premium               */
+  --sb-shadow-gradient: 0 8px 32px 0 rgba(23, 187, 207, 0.20);
+
+  /* ── Transitions ─────────────────────────────────────────── */
+  --sb-ease:       cubic-bezier(0.4, 0, 0.2, 1);
+  --sb-transition: 220ms var(--sb-ease);
+
+  /* ── Layout ──────────────────────────────────────────────── */
+  --sb-container-sm:  640px;
+  --sb-container-md:  768px;
+  --sb-container-lg:  1024px;
+  --sb-container-xl:  1200px;
+}

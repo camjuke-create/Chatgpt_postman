@@ -1,0 +1,432 @@
+/* ============================================================
+   SYMPLYA BUSINESS — Composants CSS
+   Importer après symplya-business-tokens.css
+   Style : B2B · dynamique · dégradé cyan→vert · professionnel
+   ============================================================ */
+
+/* ── Reset ───────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--sb-font);
+  font-size: var(--sb-text-base);
+  color: var(--sb-navy);
+  background: var(--sb-bg);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Conteneur ───────────────────────────────────────────── */
+.sb-container {
+  width: 100%;
+  max-width: var(--sb-container-xl);
+  margin-inline: auto;
+  padding-inline: var(--sb-space-6);
+}
+
+/* ── Typographie ─────────────────────────────────────────── */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--sb-font);
+  color: var(--sb-navy);
+  line-height: 1.25;
+}
+h1 { font-size: var(--sb-text-4xl); font-weight: var(--sb-font-bold); }
+h2 { font-size: var(--sb-text-3xl); font-weight: var(--sb-font-semibold); }
+h3 { font-size: var(--sb-text-2xl); font-weight: var(--sb-font-semibold); }
+h4 { font-size: var(--sb-text-xl);  font-weight: var(--sb-font-semibold); }
+
+/* Tagline — "Des solutions simples pour utiliser l'IA concrètement." */
+.sb-tagline {
+  font-size: var(--sb-text-lg);
+  font-weight: var(--sb-font-medium);
+  color: var(--sb-green);
+  line-height: 1.4;
+}
+
+/* Texte dégradé — pour titres hero                           */
+.sb-text-gradient {
+  background: var(--sb-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.sb-text-muted  { color: var(--sb-gray-500); }
+.sb-text-navy   { color: var(--sb-navy); }
+.sb-text-cyan   { color: var(--sb-cyan); }
+.sb-text-green  { color: var(--sb-green); }
+
+/* ── Navbar ──────────────────────────────────────────────── */
+.sb-navbar {
+  background: var(--sb-white);
+  border-bottom: var(--sb-border-light);
+  padding: var(--sb-space-4) var(--sb-space-6);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: var(--sb-shadow-xs);
+}
+
+/* Nom de marque avec "A" stylisé et "BUSINESS" sous-titre   */
+.sb-brand {
+  display: flex;
+  align-items: center;
+  gap: var(--sb-space-3);
+  text-decoration: none;
+}
+.sb-brand-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--sb-radius-lg);
+  background: var(--sb-gradient);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+.sb-brand-text { display: flex; flex-direction: column; }
+.sb-brand-name {
+  font-size: var(--sb-text-sm);
+  font-weight: var(--sb-font-bold);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--sb-navy);
+  line-height: 1.1;
+}
+.sb-brand-sub {
+  font-size: 10px;
+  font-weight: var(--sb-font-semibold);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background: var(--sb-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Boutons ─────────────────────────────────────────────── */
+.sb-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sb-space-2);
+  padding: var(--sb-space-3) var(--sb-space-6);
+  font-family: var(--sb-font);
+  font-size: var(--sb-text-sm);
+  font-weight: var(--sb-font-semibold);
+  border-radius: var(--sb-radius-md);
+  border: 1.5px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: all var(--sb-transition);
+  letter-spacing: 0.02em;
+}
+.sb-btn:focus-visible {
+  outline: 2px solid var(--sb-cyan);
+  outline-offset: 2px;
+}
+
+/* Gradient — CTA principal (signature BUSINESS)             */
+.sb-btn-gradient {
+  background: var(--sb-gradient);
+  color: var(--sb-white);
+  border-color: transparent;
+  box-shadow: 0 2px 12px rgba(23, 187, 207, 0.30);
+}
+.sb-btn-gradient:hover {
+  background: var(--sb-gradient-hover);
+  box-shadow: 0 4px 20px rgba(23, 187, 207, 0.40);
+  transform: translateY(-1px);
+}
+
+/* Navy — secondaire                                          */
+.sb-btn-navy {
+  background: var(--sb-navy);
+  color: var(--sb-white);
+}
+.sb-btn-navy:hover { background: var(--sb-navy-dark); }
+
+/* Outline navy                                               */
+.sb-btn-outline {
+  background: transparent;
+  color: var(--sb-navy);
+  border-color: var(--sb-navy);
+}
+.sb-btn-outline:hover { background: var(--sb-navy-light); }
+
+/* Outline gradient                                           */
+.sb-btn-outline-gradient {
+  background: transparent;
+  border-color: transparent;
+  position: relative;
+  color: var(--sb-navy);
+}
+.sb-btn-outline-gradient::before {
+  content: '';
+  position: absolute;
+  inset: -1.5px;
+  border-radius: inherit;
+  background: var(--sb-gradient);
+  z-index: -1;
+}
+.sb-btn-outline-gradient::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: calc(var(--sb-radius-md) - 1px);
+  background: var(--sb-white);
+  z-index: -1;
+}
+
+/* Ghost                                                      */
+.sb-btn-ghost {
+  background: transparent;
+  color: var(--sb-cyan);
+  border-color: transparent;
+}
+.sb-btn-ghost:hover { background: var(--sb-cyan-light); }
+
+/* Tailles                                                    */
+.sb-btn-sm { padding: var(--sb-space-2) var(--sb-space-4); font-size: var(--sb-text-xs); }
+.sb-btn-lg { padding: var(--sb-space-4) var(--sb-space-8); font-size: var(--sb-text-base); }
+
+/* ── Badges ─────────────────────────────────────────────── */
+.sb-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px var(--sb-space-3);
+  font-size: var(--sb-text-xs);
+  font-weight: var(--sb-font-semibold);
+  letter-spacing: 0.04em;
+  border-radius: var(--sb-radius-full);
+}
+.sb-badge-gradient {
+  background: var(--sb-gradient);
+  color: var(--sb-white);
+}
+.sb-badge-cyan   { background: var(--sb-cyan-light);   color: var(--sb-cyan-dark); }
+.sb-badge-green  { background: var(--sb-green-light);  color: var(--sb-green-dark); }
+.sb-badge-navy   { background: var(--sb-navy-light);   color: var(--sb-navy-dark); }
+.sb-badge-gray   { background: var(--sb-gray-100);     color: var(--sb-gray-700); }
+.sb-badge-warning{ background: var(--sb-warning-light);color: var(--sb-warning); }
+.sb-badge-danger { background: var(--sb-danger-light); color: var(--sb-danger); }
+
+/* ── Cartes ──────────────────────────────────────────────── */
+.sb-card {
+  background: var(--sb-white);
+  border: var(--sb-border-light);
+  border-radius: var(--sb-radius-xl);
+  box-shadow: var(--sb-shadow-sm);
+  overflow: hidden;
+  transition: box-shadow var(--sb-transition), transform var(--sb-transition);
+}
+.sb-card:hover {
+  box-shadow: var(--sb-shadow-gradient);
+  transform: translateY(-2px);
+}
+.sb-card-header {
+  padding: var(--sb-space-5) var(--sb-space-6);
+  border-bottom: var(--sb-border-light);
+}
+.sb-card-body   { padding: var(--sb-space-6); }
+.sb-card-footer {
+  padding: var(--sb-space-4) var(--sb-space-6);
+  border-top: var(--sb-border-light);
+  background: var(--sb-bg);
+}
+
+/* Carte avec bordure dégradé en haut                        */
+.sb-card-featured {
+  background: var(--sb-white);
+  border-radius: var(--sb-radius-xl);
+  box-shadow: var(--sb-shadow-gradient);
+  overflow: hidden;
+  position: relative;
+}
+.sb-card-featured::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: var(--sb-gradient);
+}
+
+/* ── Icône dégradé — style logo SYMPLYA BUSINESS            */
+.sb-icon-box {
+  width: 56px;
+  height: 56px;
+  border-radius: var(--sb-radius-xl);
+  background: var(--sb-gradient);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  box-shadow: 0 4px 14px rgba(23, 187, 207, 0.30);
+  flex-shrink: 0;
+}
+.sb-icon-box-sm {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--sb-radius-lg);
+  font-size: 20px;
+}
+.sb-icon-box-soft {
+  background: var(--sb-gradient-soft);
+}
+
+/* ── Formulaires ─────────────────────────────────────────── */
+.sb-form-group { display: flex; flex-direction: column; gap: var(--sb-space-2); }
+
+.sb-label {
+  font-size: var(--sb-text-sm);
+  font-weight: var(--sb-font-medium);
+  color: var(--sb-navy);
+}
+.sb-input {
+  width: 100%;
+  padding: var(--sb-space-3) var(--sb-space-4);
+  font-size: var(--sb-text-sm);
+  font-family: var(--sb-font);
+  color: var(--sb-navy);
+  background: var(--sb-white);
+  border: 1.5px solid var(--sb-gray-300);
+  border-radius: var(--sb-radius-md);
+  transition: border-color var(--sb-transition), box-shadow var(--sb-transition);
+}
+.sb-input::placeholder { color: var(--sb-gray-500); }
+.sb-input:focus {
+  outline: none;
+  border-color: var(--sb-cyan);
+  box-shadow: 0 0 0 3px var(--sb-cyan-light);
+}
+
+/* ── Hero — navy + dégradé                                  */
+.sb-hero {
+  background: var(--sb-navy-dark);
+  padding: var(--sb-space-20) var(--sb-space-6);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+/* Halo dégradé décoratif en arrière-plan                    */
+.sb-hero::before {
+  content: '';
+  position: absolute;
+  top: -40%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(23,187,207,0.15) 0%, rgba(45,200,74,0.08) 60%, transparent 70%);
+  pointer-events: none;
+}
+.sb-hero h1, .sb-hero h2 { color: var(--sb-white); position: relative; }
+.sb-hero .sb-tagline      { color: var(--sb-green); position: relative; }
+.sb-hero p                { color: rgba(255,255,255,0.72); position: relative; }
+
+/* ── Checklist — style "solutions" BUSINESS                 */
+.sb-checklist { list-style: none; display: flex; flex-direction: column; gap: var(--sb-space-4); }
+.sb-checklist li {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sb-space-3);
+  font-size: var(--sb-text-base);
+}
+.sb-checklist li::before {
+  content: '✓';
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--sb-gradient);
+  color: white;
+  font-size: 11px;
+  font-weight: var(--sb-font-bold);
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+/* ── Alertes ─────────────────────────────────────────────── */
+.sb-alert {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sb-space-3);
+  padding: var(--sb-space-4);
+  border-radius: var(--sb-radius-md);
+  font-size: var(--sb-text-sm);
+  border-left: 3px solid;
+}
+.sb-alert-info    { background: var(--sb-cyan-light);  color: var(--sb-cyan-dark);  border-color: var(--sb-cyan); }
+.sb-alert-success { background: var(--sb-green-light); color: var(--sb-green-dark); border-color: var(--sb-green); }
+.sb-alert-warning { background: var(--sb-warning-light);color:var(--sb-warning);    border-color: var(--sb-warning); }
+.sb-alert-danger  { background: var(--sb-danger-light); color:var(--sb-danger);     border-color: var(--sb-danger); }
+
+/* ── Séparateur dégradé                                      */
+.sb-divider {
+  height: 1px;
+  background: var(--sb-gray-100);
+  margin-block: var(--sb-space-6);
+}
+.sb-divider-gradient {
+  height: 2px;
+  background: var(--sb-gradient);
+  border: none;
+  margin-block: var(--sb-space-6);
+}
+
+/* ── Barre de progression                                    */
+.sb-progress {
+  height: 8px;
+  background: var(--sb-gray-100);
+  border-radius: var(--sb-radius-full);
+  overflow: hidden;
+}
+.sb-progress-bar {
+  height: 100%;
+  border-radius: var(--sb-radius-full);
+  background: var(--sb-gradient);
+  transition: width 500ms var(--sb-ease);
+}
+
+/* ── Stat / KPI card                                         */
+.sb-stat {
+  background: var(--sb-white);
+  border: var(--sb-border-light);
+  border-radius: var(--sb-radius-xl);
+  padding: var(--sb-space-6);
+  text-align: center;
+}
+.sb-stat-value {
+  font-size: var(--sb-text-4xl);
+  font-weight: var(--sb-font-bold);
+  background: var(--sb-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1;
+}
+.sb-stat-label {
+  font-size: var(--sb-text-sm);
+  color: var(--sb-gray-500);
+  margin-top: var(--sb-space-2);
+}
+
+/* ── Utilitaires grille                                      */
+.sb-grid-2 { display: grid; grid-template-columns: repeat(2,1fr); gap: var(--sb-space-6); }
+.sb-grid-3 { display: grid; grid-template-columns: repeat(3,1fr); gap: var(--sb-space-6); }
+.sb-grid-4 { display: grid; grid-template-columns: repeat(4,1fr); gap: var(--sb-space-6); }
+@media (max-width: 768px) {
+  .sb-grid-2, .sb-grid-3, .sb-grid-4 { grid-template-columns: 1fr; }
+}
+
+.sb-flex          { display: flex; }
+.sb-items-center  { align-items: center; }
+.sb-gap-4         { gap: var(--sb-space-4); }
+.sb-w-full        { width: 100%; }
+.sb-text-center   { text-align: center; }
